@@ -32,6 +32,7 @@
             android:layout_marginStart="@dimen/marginStartEnd"
             android:layout_marginTop="@dimen/marginTopText"
             android:layout_marginEnd="@dimen/marginStartEnd"
+            android:textAlignment="center"
             android:text="@string/scene_1_3"
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
