@@ -3,4 +3,5 @@
 
     <dimen name="fontSize">22sp</dimen>
     <dimen name="marginTopText">50dp</dimen>
+    <dimen name="marginStartEnd">30dp</dimen>
 </resources>
