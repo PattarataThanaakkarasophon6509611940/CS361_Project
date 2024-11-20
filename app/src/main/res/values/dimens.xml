@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="fontSize">22sp</dimen>
+    <dimen name="fontSize">16sp</dimen>
     <dimen name="marginTopText">50dp</dimen>
     <dimen name="marginStartEnd">30dp</dimen>
+    <dimen name="btnWidth">100dp</dimen>
+    <dimen name="btnHeight">60dp</dimen>
+    <dimen name="btnSetting">60dp</dimen>
+    <dimen name="btnNext">40dp</dimen>
+    <dimen name="btnSettingMargin">10dp</dimen>
 </resources>
