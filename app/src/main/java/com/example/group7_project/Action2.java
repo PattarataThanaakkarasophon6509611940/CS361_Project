@@ -25,7 +25,17 @@ public class Action2 extends AppCompatActivity {
         });
 
         // รับค่า color จาก Intent
-        String color = getIntent().getStringExtra("param");
+        String color = getIntent().getStringExtra("color");
+
+        ImageView imgScene = findViewById(R.id.scene);
+        TextView text = findViewById(R.id.textScene);
+        if ("black".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_2_2_black);
+        } else if ("orange".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_2_2_orange);
+        } else if ("white".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_2_2_white);
+        }
 
         // ค้นหา View
         Button btnYes = findViewById(R.id.btnYes);
@@ -33,13 +43,10 @@ public class Action2 extends AppCompatActivity {
 
         // กดปุ่ม "No" เพื่อไปยังหน้า scene_bad_ending.xml
         btnNo.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, BadEndingActivity.class);
+            Intent intent = new Intent(Action2.this, BadEnding.class);
             startActivity(intent); // เปิดหน้า Scene Bad Ending
             finish(); // ปิด Action2
         });
-
-        ImageView imgScene = findViewById(R.id.scene);
-        TextView text = findViewById(R.id.textScene);
 
         // กดปุ่ม "Yes" เพื่อไปยัง Scene 3 พร้อมส่งค่า color กลับไปยัง GameActivity
         btnYes.setOnClickListener(v -> {

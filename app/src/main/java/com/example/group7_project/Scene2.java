@@ -49,7 +49,7 @@ public class Scene2 extends AppCompatActivity {
             // Intent ไปยัง Action2 เมื่อ Scene 2 จบ
             btnNext.setOnClickListener(v2 -> {
                 Intent intent = new Intent(Scene2.this, Action2.class);
-                intent.putExtra("param", color); // ส่งค่า color ไปยัง Action2
+                intent.putExtra("color", color); // ส่งค่า color ไปยัง Action2
                 startActivity(intent); // เปิดหน้า Action2
             });
         });

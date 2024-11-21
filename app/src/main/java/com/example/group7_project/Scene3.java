@@ -28,29 +28,53 @@ public class Scene3 extends AppCompatActivity {
         Button btnNext = findViewById(R.id.btnNext);
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
-        // ตัวนับสถานะของ Scene 1
+        // ตัวนับสถานะของ Scene 3
         final int[] sceneIndex = {1};
+
+        // รับค่าสีจาก Action2
+        String color = getIntent().getStringExtra("color");
+
+        // แสดง Scene 3_1 ทันทีที่เปิด
+        if ("black".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_3_1_black);
+        } else if ("orange".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_3_1_orange);
+        } else if ("white".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_3_1_white);
+        }
 
         btnNext.setOnClickListener(v -> {
             switch (sceneIndex[0]) {
                 case 1:
-                    imgScene.setImageResource(R.drawable.scene_1_2);
-                    text.setText(R.string.scene_1_2);
+                    if ("black".equals(color)) {
+                        imgScene.setImageResource(R.drawable.scene_3_2_black);
+                        text.setText(R.string.scene_3_2);
+                    } else if ("orange".equals(color)) {
+                        imgScene.setImageResource(R.drawable.scene_3_2_orange);
+                        text.setText(R.string.scene_3_2);
+                    } else if ("white".equals(color)) {
+                        imgScene.setImageResource(R.drawable.scene_3_2_white);
+                        text.setText(R.string.scene_3_2);
+                    }
                     sceneIndex[0] = 2;
                     break;
                 case 2:
-                    imgScene.setImageResource(R.drawable.scene_1_3);
-                    text.setText(R.string.scene_1_3);
+                    if ("black".equals(color)) {
+                        imgScene.setImageResource(R.drawable.scene_3_3_black);
+                        text.setText(R.string.scene_3_3);
+                    } else if ("orange".equals(color)) {
+                        imgScene.setImageResource(R.drawable.scene_3_3_orange);
+                        text.setText(R.string.scene_3_3);
+                    } else if ("white".equals(color)) {
+                        imgScene.setImageResource(R.drawable.scene_3_3_white);
+                        text.setText(R.string.scene_3_3);
+                    }
                     sceneIndex[0] = 3;
                     break;
-                case 3:
-                    imgScene.setImageResource(R.drawable.scene_1_4);
-                    text.setText(R.string.scene_1_4);
-                    sceneIndex[0] = 4;
-                    break;
                 default:
-                    // เมื่อจบ Scene 3 ให้ไปที่ Action3
+                    // เมื่อจบ Scene3 ให้ไปที่ Action3
                     Intent intent = new Intent(Scene3.this, Action3.class);
+                    intent.putExtra("color", color);
                     startActivity(intent);
                     break;
             }

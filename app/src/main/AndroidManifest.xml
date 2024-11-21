@@ -33,6 +33,10 @@
             android:parentActivityName=".Action2"
             android:exported="false" />
         <activity
+            android:name=".BadEnding"
+            android:parentActivityName=".Action2"
+            android:exported="false" />
+        <activity
             android:name=".Action3"
             android:parentActivityName=".Scene3"
             android:exported="false" />
