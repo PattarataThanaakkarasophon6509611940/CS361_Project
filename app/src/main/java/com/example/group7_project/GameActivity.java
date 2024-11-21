@@ -80,7 +80,6 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-
     // Scene 2: ใช้ค่าสีที่เลือก
     private void startScene2(String color) {
         setContentView(R.layout.scene_2); // เปลี่ยน Layout เป็น Scene 2
@@ -105,5 +104,10 @@ public class GameActivity extends AppCompatActivity {
         btnNext.setOnClickListener(v -> {
             text.setText(R.string.scene_2_2_2);
         });
+        // Intent ไปยัง Action2 เมื่อ Scene 2 จบ
+        Intent intent = new Intent(GameActivity.this, Action2.class);
+        intent.putExtra("selectedColor", color); // ส่งค่า color
+        startActivity(intent); // เปิดหน้า Action2
+
     }
 }

@@ -21,6 +21,11 @@
             android:parentActivityName=".GameActivity"
             android:exported="false" />
         <activity
+            android:name=".Action2"
+            android:parentActivityName=".GameActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
