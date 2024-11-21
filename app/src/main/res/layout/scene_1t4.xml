@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imgScene_1t5"
+            android:id="@+id/imgScene_1t4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/scene_1_1"
@@ -40,14 +40,14 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/textScene_1t5"
+            android:id="@+id/textScene_1t4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/marginStartEnd"
             android:layout_marginTop="@dimen/marginTopText"
             android:layout_marginEnd="@dimen/marginStartEnd"
-            android:text="@string/scene_1_1"
+            android:text="@string/Scene_1_1"
             android:textAlignment="center"
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
