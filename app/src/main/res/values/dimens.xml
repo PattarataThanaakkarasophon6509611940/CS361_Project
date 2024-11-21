@@ -9,4 +9,15 @@
     <dimen name="btnSetting">60dp</dimen>
     <dimen name="btnNext">40dp</dimen>
     <dimen name="btnSettingMargin">10dp</dimen>
+
+    <!-- Action 1-->
+    <dimen name="marginTopText_action1">30dp</dimen>
+    <dimen name="btnChoiceAction1_w">170dp</dimen>
+    <dimen name="btnChoiceAction1_h">70dp</dimen>
+
+    <dimen name="btnChoiceAction1_margin">20dp</dimen>
+    <dimen name="btnChoiceAction1_1">10dp</dimen>
+    <dimen name="choiceAction1_h">80dp</dimen>
+
+
 </resources>
