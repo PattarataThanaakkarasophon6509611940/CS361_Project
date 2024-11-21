@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -46,7 +45,7 @@
             android:layout_marginStart="@dimen/marginStartEnd"
             android:layout_marginTop="@dimen/marginTopText"
             android:layout_marginEnd="@dimen/marginStartEnd"
-            android:text="@string/scene_2_2_1"
+            android:text="@string/scene_3_1"
             android:textAlignment="center"
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
@@ -66,5 +65,6 @@
             android:textSize="@dimen/fontSize" />
 
     </FrameLayout>
+
 
 </LinearLayout>

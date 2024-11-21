@@ -13,16 +13,28 @@
         android:theme="@style/Theme.Group7_project"
         tools:targetApi="31" >
         <activity
-            android:name=".GameActivity"
+            android:name=".Scene1"
             android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".Action1"
-            android:parentActivityName=".GameActivity"
+            android:parentActivityName=".Scene1"
+            android:exported="false" />
+        <activity
+            android:name=".Scene2"
+            android:parentActivityName=".Action1"
             android:exported="false" />
         <activity
             android:name=".Action2"
-            android:parentActivityName=".GameActivity"
+            android:parentActivityName=".Scene2"
+            android:exported="false" />
+        <activity
+            android:name=".Scene3"
+            android:parentActivityName=".Action2"
+            android:exported="false" />
+        <activity
+            android:name=".Action3"
+            android:parentActivityName=".Scene3"
             android:exported="false" />
 
         <activity

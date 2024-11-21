@@ -29,16 +29,16 @@ public class Action1 extends AppCompatActivity {
         final Button btnWhite = findViewById(R.id.btnWhite);
 
         // ตั้งค่า OnClickListener สำหรับปุ่มแต่ละปุ่ม
-        btnBlack.setOnClickListener(v -> navigateToGameActivity("black"));
-        btnOrange.setOnClickListener(v -> navigateToGameActivity("orange"));
-        btnWhite.setOnClickListener(v -> navigateToGameActivity("white"));
+        btnBlack.setOnClickListener(v -> sendColor("black"));
+        btnOrange.setOnClickListener(v -> sendColor("orange"));
+        btnWhite.setOnClickListener(v -> sendColor("white"));
 
     }
-    // ฟังก์ชันสำหรับส่งผลลัพธ์กลับไปยัง GameActivity
-    private void navigateToGameActivity(String color) {
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra("selectedColor", color);
-        setResult(RESULT_OK, resultIntent);
-        finish(); // ปิด Activity
+    // ฟังก์ชันสำหรับส่งผลลัพธ์กลับไปยัง Scene2
+    private void sendColor(String color) {
+        Intent intent = new Intent(Action1.this, Scene2.class);
+        intent.putExtra("color", color);
+        startActivity(intent);
+
     }
 }

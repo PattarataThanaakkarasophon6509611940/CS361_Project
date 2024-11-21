@@ -1,6 +1,10 @@
 package com.example.group7_project;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +17,35 @@ public class Action2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.action_1);
+        setContentView(R.layout.action_2);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        // รับค่า color จาก Intent
+        String color = getIntent().getStringExtra("param");
+
+        // ค้นหา View
+        Button btnYes = findViewById(R.id.btnYes);
+        Button btnNo = findViewById(R.id.btnNo);
+
+        // กดปุ่ม "No" เพื่อไปยังหน้า scene_bad_ending.xml
+        btnNo.setOnClickListener(v -> {
+            Intent intent = new Intent(Action2.this, BadEndingActivity.class);
+            startActivity(intent); // เปิดหน้า Scene Bad Ending
+            finish(); // ปิด Action2
+        });
+
+        ImageView imgScene = findViewById(R.id.scene);
+        TextView text = findViewById(R.id.textScene);
+
+        // กดปุ่ม "Yes" เพื่อไปยัง Scene 3 พร้อมส่งค่า color กลับไปยัง GameActivity
+        btnYes.setOnClickListener(v -> {
+            Intent intent = new Intent(Action2.this, Scene3.class);
+            intent.putExtra("color", color);
+            startActivity(intent); // เปิดหน้า Action2
         });
 
     }

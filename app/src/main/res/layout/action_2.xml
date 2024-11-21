@@ -47,49 +47,35 @@
             android:layout_marginStart="@dimen/marginStartEnd"
             android:layout_marginTop="@dimen/marginTopText_action1"
             android:layout_marginEnd="@dimen/marginStartEnd"
-            android:text="@string/scene_2_1_action_1"
+            android:text="@string/scene_2_2_action_2"
             android:textAlignment="center"
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
 
         <Button
-            android:id="@+id/btnBlack"
+            android:id="@+id/btnYes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/btnChoiceAction1_margin"
-            android:layout_marginBottom="@dimen/btnNext"
-            android:width="@dimen/btnChoiceAction1_w"
-            android:height="@dimen/btnChoiceAction1_h"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/btnChoice2Action2_marginTop"
+            android:width="@dimen/btnChoice1Action2_Width"
+            android:height="@dimen/btnChoice1Action2_Height"
             android:backgroundTint="@color/btn"
-            android:text="@string/action_1_black"
+            android:text="@string/action_2_choice_2"
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
 
         <Button
-            android:id="@+id/btnWhite"
+            android:id="@+id/btnNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/btnChoiceAction1_margin"
-            android:width="@dimen/btnChoiceAction1_w"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/btnChoice1Action2_marginTop"
+            android:width="@dimen/btnChoice1Action2_Width"
             android:height="@dimen/btnChoiceAction1_h"
             android:backgroundTint="@color/btn"
-            android:text="@string/action_1_white"
-            android:textColor="@color/text"
-            android:textSize="@dimen/fontSize" />
-
-        <Button
-            android:id="@+id/btnOrange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:layout_marginStart="@dimen/btnChoiceAction1_margin"
-            android:layout_marginBottom="@dimen/btnNext"
-            android:width="@dimen/btnChoiceAction1_w"
-            android:height="@dimen/btnChoiceAction1_h"
-            android:backgroundTint="@color/btn"
-            android:text="@string/action_1_orange"
+            android:gravity="center_horizontal"
+            android:text="@string/action_2_choice_1"
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
 
