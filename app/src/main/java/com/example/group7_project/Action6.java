@@ -12,12 +12,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Action2 extends AppCompatActivity {
+public class Action6 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.action_2);
+        setContentView(R.layout.action_3);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -25,34 +25,29 @@ public class Action2 extends AppCompatActivity {
         });
 
         String color = getIntent().getStringExtra("color");
+        String book = getIntent().getStringExtra("book");
+
+        Button btnPass = findViewById(R.id.btnPass);
+        Button btnFail = findViewById(R.id.btnFail);
 
         ImageView imgScene = findViewById(R.id.scene);
-        TextView text = findViewById(R.id.textScene);
-        if ("black".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_black);
-        } else if ("orange".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_orange);
-        } else if ("white".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_white);
-        }
 
-        Button btnYes = findViewById(R.id.btnYes);
-        Button btnNo = findViewById(R.id.btnNo);
-
-        btnNo.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, Ending.class);
+        btnPass.setOnClickListener(v -> {
+            Intent intent = new Intent(Action6.this, Scene5.class);
             intent.putExtra("color", color);
-            intent.putExtra("endingType", "bad");
+            intent.putExtra("book", book);
+            intent.putExtra("status", "pass");
             startActivity(intent);
             finish();
         });
 
-        btnYes.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, Scene3.class);
-            intent.putExtra("color", color);
-            startActivity(intent);
+        btnFail.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("color", color);
+            resultIntent.putExtra("book", book);
+            resultIntent.putExtra("status", "fail");
+            setResult(RESULT_OK, resultIntent);
+            finish();
         });
-
     }
-
 }

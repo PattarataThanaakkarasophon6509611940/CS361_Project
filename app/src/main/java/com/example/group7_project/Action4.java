@@ -12,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Action2 extends AppCompatActivity {
+public class Action4 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,35 +24,41 @@ public class Action2 extends AppCompatActivity {
             return insets;
         });
 
+        // รับค่า color จาก Intent
         String color = getIntent().getStringExtra("color");
 
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
-        if ("black".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_black);
-        } else if ("orange".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_orange);
-        } else if ("white".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_white);
-        }
 
+        // ค้นหา View
         Button btnYes = findViewById(R.id.btnYes);
         Button btnNo = findViewById(R.id.btnNo);
 
+        if ("black".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_3_5_black);
+        } else if ("orange".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_3_5_orange);
+        } else if ("white".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_3_5_white);
+        }
+
+        text.setText(R.string.action_4);
+        btnYes.setText(R.string.action_4_choice_1);
+        btnNo.setText(R.string.action_4_choice_2);
+
         btnNo.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, Ending.class);
+            Intent intent = new Intent(Action4.this, Scene4.class);
             intent.putExtra("color", color);
-            intent.putExtra("endingType", "bad");
             startActivity(intent);
             finish();
         });
 
         btnYes.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, Scene3.class);
+            Intent intent = new Intent(Action4.this,Ending.class);
+            intent.putExtra("endingType", "happy");
             intent.putExtra("color", color);
             startActivity(intent);
+            finish();
         });
-
     }
-
 }

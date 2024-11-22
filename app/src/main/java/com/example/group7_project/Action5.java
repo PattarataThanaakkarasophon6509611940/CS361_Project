@@ -12,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Action2 extends AppCompatActivity {
+public class Action5 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,31 +28,28 @@ public class Action2 extends AppCompatActivity {
 
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
-        if ("black".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_black);
-        } else if ("orange".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_orange);
-        } else if ("white".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_white);
-        }
-
         Button btnYes = findViewById(R.id.btnYes);
         Button btnNo = findViewById(R.id.btnNo);
 
-        btnNo.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, Ending.class);
-            intent.putExtra("color", color);
-            intent.putExtra("endingType", "bad");
-            startActivity(intent);
+        imgScene.setImageResource(R.drawable.scene_4_3);
+        text.setText(R.string.action_5);
+        btnYes.setText(R.string.action_5_choice_1);
+        btnNo.setText(R.string.action_5_choice_2);
+
+        btnYes.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("color", color);
+            resultIntent.putExtra("book", "yes");
+            setResult(RESULT_OK, resultIntent);
             finish();
         });
 
-        btnYes.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, Scene3.class);
-            intent.putExtra("color", color);
-            startActivity(intent);
+        btnNo.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("color", color);
+            resultIntent.putExtra("book", "no");
+            setResult(RESULT_OK, resultIntent);
+            finish();
         });
-
     }
-
 }

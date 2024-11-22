@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/scene"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/scene_4_2"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/imgSetting"
+            android:layout_width="@dimen/btnSetting"
+            android:layout_height="@dimen/btnSetting"
+            android:layout_marginStart="@dimen/btnSettingMargin"
+            android:layout_marginTop="@dimen/btnSettingMargin"
+            app:srcCompat="@drawable/setting"
+            tools:ignore="ContentDescription" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnFail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/btnChoice2Action2_marginTop"
+        android:width="@dimen/btnChoice1Action2_Width"
+        android:backgroundTint="@color/btn"
+        android:text="ไม่ผ่าน"
+        android:textColor="@color/text"
+        android:textSize="@dimen/fontSize" />
+
+    <Button
+        android:id="@+id/btnPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:width="@dimen/btnChoice1Action2_Width"
+        android:backgroundTint="@color/btn"
+        android:gravity="center_horizontal"
+        android:text="ผ่าน"
+        android:textColor="@color/text"
+        android:textSize="@dimen/fontSize" />
+
+</LinearLayout>

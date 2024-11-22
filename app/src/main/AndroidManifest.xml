@@ -17,28 +17,51 @@
             android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Action1"
-            android:parentActivityName=".Scene1"
-            android:exported="false" />
-        <activity
             android:name=".Scene2"
             android:parentActivityName=".Action1"
-            android:exported="false" />
-        <activity
-            android:name=".Action2"
-            android:parentActivityName=".Scene2"
             android:exported="false" />
         <activity
             android:name=".Scene3"
             android:parentActivityName=".Action2"
             android:exported="false" />
         <activity
-            android:name=".BadEnding"
-            android:parentActivityName=".Action2"
+            android:name=".Scene4"
+            android:parentActivityName=".Action4"
+            android:exported="false" />
+        <activity
+            android:name=".Action1"
+            android:parentActivityName=".Scene1"
+            android:exported="false" />
+        <activity
+            android:name=".Action2"
+            android:parentActivityName=".Scene2"
             android:exported="false" />
         <activity
             android:name=".Action3"
             android:parentActivityName=".Scene3"
+            android:exported="false" />
+        <activity
+            android:name=".Action4"
+            android:parentActivityName=".Scene3"
+            android:exported="false" />
+        <activity
+            android:name=".Action5"
+            android:parentActivityName=".Scene4"
+            android:exported="false" />
+        <activity
+            android:name=".Action6"
+            android:parentActivityName=".Scene4"
+            android:exported="false" />
+        <activity
+            android:name=".Action7"
+            android:parentActivityName=".Scene5"
+            android:exported="false" />
+        <activity
+            android:name=".Ending"
+            android:exported="false" />
+        <activity
+            android:name=".TakePhoto"
+            android:parentActivityName=".Ending"
             android:exported="false" />
 
         <activity

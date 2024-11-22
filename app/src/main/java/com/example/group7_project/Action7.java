@@ -12,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Action2 extends AppCompatActivity {
+public class Action7  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +24,7 @@ public class Action2 extends AppCompatActivity {
             return insets;
         });
 
+        // รับค่า color จาก Intent
         String color = getIntent().getStringExtra("color");
 
         ImageView imgScene = findViewById(R.id.scene);
@@ -36,23 +37,24 @@ public class Action2 extends AppCompatActivity {
             imgScene.setImageResource(R.drawable.scene_2_2_white);
         }
 
+        // ค้นหา View
         Button btnYes = findViewById(R.id.btnYes);
         Button btnNo = findViewById(R.id.btnNo);
 
         btnNo.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, Ending.class);
+            Intent intent = new Intent(Action7.this, Ending.class);
             intent.putExtra("color", color);
-            intent.putExtra("endingType", "bad");
-            startActivity(intent);
+            intent.putExtra("endingType", "true");
+            startActivity(intent); // เปิดหน้า Scene Bad Ending
             finish();
         });
 
         btnYes.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, Scene3.class);
+            Intent intent = new Intent(Action7.this, Ending.class);
             intent.putExtra("color", color);
-            startActivity(intent);
+            intent.putExtra("endingType", "sad");
+            startActivity(intent); // เปิดหน้า Scene3
         });
 
     }
-
 }
