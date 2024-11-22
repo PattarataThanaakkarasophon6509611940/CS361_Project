@@ -35,8 +35,75 @@ public class Ending extends AppCompatActivity {
         // กำหนดฉากจบตาม endingType
         switch (endingType) {
             case "secret":
+                if ("black".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_sc_1_black);
+                } else if ("orange".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_sc_1_orange);
+                } else if ("white".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_sc_1_white);
+                }
+                text.setText(R.string.scene_sc_1);
 
+                final int[] sceneIndexSecret = {1};
 
+                btnNext.setOnClickListener(v -> {
+                    switch (sceneIndexSecret[0]) {
+                        case 1:
+                            imgScene.setImageResource(R.drawable.scene_sc_2_1);
+                            text.setText(R.string.scene_sc_2_1);
+                            sceneIndexSecret[0] = 2;
+                            break;
+                        case 2:
+                            text.setText(R.string.scene_sc_2_2);
+                            sceneIndexSecret[0] = 3;
+                            break;
+                        case 3:
+                            text.setText(R.string.scene_sc_2_3);
+                            sceneIndexSecret[0] = 4;
+                            break;
+                        case 4:
+                            if ("black".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_5_4_1_black);
+                            } else if ("orange".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_5_4_1_orange);
+                            } else if ("white".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_5_4_1_white);
+                            }
+                            text.setText(R.string.scene_sc_3);
+                            sceneIndexSecret[0] = 5;
+                            break;
+                        case 5:
+                            imgScene.setImageResource(R.drawable.scene_sc_4);
+                            text.setText(R.string.scene_sc_4);
+                            sceneIndexSecret[0] = 6;
+                            break;
+                        case 6:
+                            imgScene.setImageResource(R.drawable.scene_sc_5_1);
+                            text.setText(R.string.scene_sc_5_1);
+                            sceneIndexSecret[0] = 7;
+                            break;
+                        case 7:
+                            text.setText(R.string.scene_sc_5_2);
+                            sceneIndexSecret[0] = 8;
+                            break;
+                        case 8:
+                            text.setText(R.string.scene_sc_5_3);
+                            sceneIndexSecret[0] = 9;
+                            break;
+                        case 9:
+                            setContentView(R.layout.scene_ending_photo);
+                            imgScene.setImageResource(R.drawable.scene_sc_6);
+                            text.setText(R.string.scene_sc_6);
+                            endingText.setText(R.string.ending);
+                            sceneIndexSecret[0] = 10;
+                            break;
+                        default:
+                            Intent intent = new Intent(Ending.this, TakePhoto.class);
+                            intent.putExtra("color", color);
+                            startActivity(intent);
+                            break;
+                    }
+                });
                 break;
             case "bad":
                 imgScene.setImageResource(R.drawable.scene_b_1);
@@ -51,6 +118,7 @@ public class Ending extends AppCompatActivity {
                             sceneIndexBad[0] = 2;
                             break;
                         case 2:
+                            setContentView(R.layout.scene_ending_photo);
                             imgScene.setImageResource(R.drawable.scene_b_3);
                             text.setText(R.string.scene_b_3);
                             endingText.setText(R.string.ending);
@@ -65,22 +133,153 @@ public class Ending extends AppCompatActivity {
                 });
                 break;
             case "sad":
+                if ("black".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_5_4_1_black);
+                } else if ("orange".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_5_4_1_orange);
+                } else if ("white".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_5_4_1_white);
+                }
+                text.setText(R.string.scene_s_1_1);
 
+                final int[] sceneIndexSad = {1};
+
+                btnNext.setOnClickListener(v -> {
+                    switch (sceneIndexSad[0]) {
+                        case 1:
+                            text.setText(R.string.scene_s_1_2);
+                            sceneIndexSad[0] = 2;
+                            break;
+                        case 2:
+                            if ("black".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_5_2_black);
+                            } else if ("orange".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_5_2_orange);
+                            } else if ("white".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_5_2_white);
+                            }
+                            text.setText(R.string.scene_s_2);
+                            sceneIndexSad[0] = 3;
+                            break;
+                        case 3:
+                            if ("black".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_s_3_black);
+                            } else if ("orange".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_s_3_orange);
+                            } else if ("white".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_s_3_white);
+                            }
+                            text.setText(R.string.scene_s_3);
+                            sceneIndexSad[0] = 4;
+                            break;
+                        case 4:
+                            imgScene.setImageResource(R.drawable.scene_s_4);
+                            text.setText(R.string.scene_s_4);
+                            sceneIndexSad[0] = 5;
+                            break;
+                        case 5:
+                            if ("black".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_s_5_1_black);
+                            } else if ("orange".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_s_5_1_orange);
+                            } else if ("white".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_s_5_1_white);
+                            }
+                            text.setText(R.string.scene_s_5_1);
+                            sceneIndexSad[0] = 6;
+                            break;
+                        case 6:
+                            text.setText(R.string.scene_sc_5_2);
+                            sceneIndexSad[0] = 7;
+                            break;
+                        case 7:
+                            text.setText(R.string.scene_sc_5_3);
+                            sceneIndexSad[0] = 8;
+                            break;
+                        case 8:
+                            setContentView(R.layout.scene_ending_photo);
+                            imgScene.setImageResource(R.drawable.scene_s_6);
+                            text.setText(R.string.scene_s_6);
+                            endingText.setText(R.string.ending);
+                            sceneIndexSad[0] = 9;
+                            break;
+                        default:
+                            Intent intent = new Intent(Ending.this, TakePhoto.class);
+                            intent.putExtra("color", color);
+                            startActivity(intent);
+                            break;
+                    }
+                });
                 break;
             case "true":
+                if ("black".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_5_4_1_black);
+                } else if ("orange".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_5_4_1_orange);
+                } else if ("white".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_5_4_1_white);
+                }
+                text.setText(R.string.scene_t_1_1);
 
+                final int[] sceneIndexTrue = {1};
+
+                btnNext.setOnClickListener(v -> {
+                    switch (sceneIndexTrue[0]) {
+                        case 1:
+                            if ("black".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_5_2_black);
+                                text.setText(R.string.scene_t_1_2);
+                            } else if ("orange".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_5_2_orange);
+                                text.setText(R.string.scene_t_1_2);
+                            } else if ("white".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_5_2_white);
+                                text.setText(R.string.scene_t_1_2);
+                            }
+                            sceneIndexTrue[0] = 2;
+                            break;
+                        case 2:
+                            if ("black".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_t_2_1_black);
+                                text.setText(R.string.scene_t_2_1);
+                            } else if ("orange".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_t_2_1_orange);
+                                text.setText(R.string.scene_t_2_1);
+                            } else if ("white".equals(color)) {
+                                imgScene.setImageResource(R.drawable.scene_t_2_1_white);
+                                text.setText(R.string.scene_t_2_1);
+                            }
+                            sceneIndexTrue[0] = 3;
+                            break;
+                        case 4:
+                            setContentView(R.layout.scene_ending_photo);
+                            if ("black".equals(color)) {
+                                text.setText(R.string.scene_t_2_2);
+                            } else if ("orange".equals(color)) {
+                                text.setText(R.string.scene_t_2_2);
+                            } else if ("white".equals(color)) {
+                                text.setText(R.string.scene_t_2_2);
+                                endingText.setText(R.string.ending);
+                            }
+                            sceneIndexTrue[0] = 5;
+                            break;
+                        default:
+                            Intent intent = new Intent(Ending.this, TakePhoto.class);
+                            intent.putExtra("color", color);
+                            startActivity(intent);
+                            break;
+                    }
+                });
                 break;
             case "happy":
                 if ("black".equals(color)) {
                     imgScene.setImageResource(R.drawable.scene_h_1_1_black);
-                    text.setText(R.string.scene_h_1_1);
                 } else if ("orange".equals(color)) {
                     imgScene.setImageResource(R.drawable.scene_h_1_1_orange);
-                    text.setText(R.string.scene_h_1_1);
                 } else if ("white".equals(color)) {
                     imgScene.setImageResource(R.drawable.scene_h_1_1_white);
-                    text.setText(R.string.scene_h_1_1);
                 }
+                text.setText(R.string.scene_h_1_1);
 
                 final int[] sceneIndexHappy = {1};
 
@@ -140,6 +339,7 @@ public class Ending extends AppCompatActivity {
                             sceneIndexHappy[0] = 6;
                             break;
                         case 6:
+                            setContentView(R.layout.scene_ending_photo);
                             if ("black".equals(color)) {
                                 imgScene.setImageResource(R.drawable.scene_h_3_black);
                                 text.setText(R.string.scene_h_3);
@@ -160,7 +360,6 @@ public class Ending extends AppCompatActivity {
                             break;
                     }
                 });
-
                 break;
             default:
         }

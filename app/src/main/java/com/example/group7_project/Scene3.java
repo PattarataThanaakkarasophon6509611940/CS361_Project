@@ -100,7 +100,6 @@ public class Scene3 extends AppCompatActivity {
         }
     }
 
-    // เริ่มต้นแสดงผลตามผลลัพธ์
     private void startPass(String color) {
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);

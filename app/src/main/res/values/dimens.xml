@@ -10,6 +10,7 @@
     <dimen name="btnNext">40dp</dimen>
     <dimen name="btnSettingMargin">10dp</dimen>
     <dimen name="endingTextNarginTop">20dp</dimen>
+    <dimen name="btnLukaPhotoWidth">200dp</dimen>
 
     <!-- Action 0 -->
     <dimen name="btnAction0Width">200dp</dimen>

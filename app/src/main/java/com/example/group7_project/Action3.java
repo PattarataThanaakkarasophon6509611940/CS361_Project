@@ -33,7 +33,7 @@ public class Action3 extends AppCompatActivity {
         btnPass.setOnClickListener(v -> {
             Intent resultIntent = new Intent();
             resultIntent.putExtra("color", color);
-            resultIntent.putExtra("status", "pass"); // ส่งสถานะ fail
+            resultIntent.putExtra("status", "pass");
             setResult(RESULT_OK, resultIntent);
             finish();
         });
@@ -41,7 +41,7 @@ public class Action3 extends AppCompatActivity {
         btnFail.setOnClickListener(v -> {
             Intent resultIntent = new Intent();
             resultIntent.putExtra("color", color);
-            resultIntent.putExtra("status", "fail"); // ส่งสถานะ pass
+            resultIntent.putExtra("status", "fail");
             setResult(RESULT_OK, resultIntent);
             finish();
         });

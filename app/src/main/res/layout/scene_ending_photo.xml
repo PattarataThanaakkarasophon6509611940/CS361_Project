@@ -6,15 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/scene"
+            app:srcCompat="@drawable/scene_b_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/scene_1_1"
             tools:ignore="ContentDescription" />
 
         <ImageView
@@ -46,7 +47,7 @@
             android:layout_marginStart="@dimen/marginStartEnd"
             android:layout_marginTop="@dimen/marginTopText"
             android:layout_marginEnd="@dimen/marginStartEnd"
-            android:text="@string/scene_3_1"
+            android:text="@string/scene_b_1"
             android:textAlignment="center"
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
@@ -55,17 +56,25 @@
             android:id="@+id/btnNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/btnNext"
+            android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="@dimen/btnNext"
-            android:width="@dimen/btnWidth"
+            android:width="@dimen/btnLukaPhotoWidth"
             android:height="@dimen/btnHeight"
             android:backgroundTint="@color/btn"
-            android:text="@string/nextButton"
+            android:text="@string/photoWithLuka"
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
 
-    </FrameLayout>
+        <TextView
+            android:id="@+id/ending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/endingTextNarginTop"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:text="" />
 
+    </FrameLayout>
 
 </LinearLayout>

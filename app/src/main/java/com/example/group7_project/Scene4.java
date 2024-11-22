@@ -25,7 +25,65 @@ public class Scene4 extends AppCompatActivity {
         });
 
         String color = getIntent().getStringExtra("color");
+        String book = getIntent().getStringExtra("book");
+        String result = getIntent().getStringExtra("result");
 
+        if ("overtime".equals(result)) {
+            handleOvertime(color, book);
+        } else if ("yes".equals(book)||"no".equals(book)){
+            handleBook(color,book);
+        } else {
+            setupInitialScene(color);
+        }
+
+    }
+
+    private void handleBook(String color,String book) {
+
+        ImageView imgScene = findViewById(R.id.scene);
+        TextView text = findViewById(R.id.textScene);
+        Button btnNext = findViewById(R.id.btnNext);
+
+        final int[] sceneIndex = {1};
+
+        if ("yes".equals(book)) {
+            imgScene.setImageResource(R.drawable.scene_4_3_2);
+            text.setText(R.string.scene_4_3_2);
+        }
+
+        if ("black".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_4_4_black);
+        } else if ("orange".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_4_4_orange);
+        } else if ("white".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_4_4_white);
+        }
+        text.setText(R.string.scene_4_4);
+
+        btnNext.setOnClickListener(v -> {
+            switch (sceneIndex[0]) {
+                case 1:
+                    imgScene.setImageResource(R.drawable.scene_4_5_1);
+                    text.setText(R.string.scene_4_5_1);
+                    sceneIndex[0] = 2;
+                    break;
+                case 2:
+                    text.setText(R.string.scene_4_5_2);
+                    sceneIndex[0] = 3;
+                    break;
+                default:
+                    Intent intent = new Intent(Scene4.this, Action6.class);
+                    intent.putExtra("color", color);
+                    intent.putExtra("book", book);
+                    startActivity(intent);
+                    break;
+            }
+        });
+
+
+    }
+
+    private void setupInitialScene(String color) {
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnNext = findViewById(R.id.btnNext);
@@ -56,64 +114,40 @@ public class Scene4 extends AppCompatActivity {
                 default:
                     Intent intent = new Intent(Scene4.this, Action5.class);
                     intent.putExtra("color", color);
-                    startActivityForResult(intent,1);
+                    startActivity(intent);
                     break;
             }
         });
-
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            String color = data.getStringExtra("color");
-            String book = data.getStringExtra("book");
-
-            startNextScenes(color, book);
-        }
-    }
-
-    private void startNextScenes(String color, String book) {
+    private void handleOvertime(String color, String book) {
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnNext = findViewById(R.id.btnNext);
 
+        imgScene.setImageResource(R.drawable.scene_4_6_1);
+        text.setText(R.string.scene_4_6_1);
+
         final int[] sceneIndex = {1};
-
-        if ("yes".equals(book)) {
-            imgScene.setImageResource(R.drawable.scene_4_3_2);
-            text.setText(R.string.scene_4_3_2);
-        }
-        else {
-            if ("black".equals(color)) {
-                imgScene.setImageResource(R.drawable.scene_4_4_black);
-            } else if ("orange".equals(color)) {
-                imgScene.setImageResource(R.drawable.scene_4_4_orange);
-            } else if ("white".equals(color)) {
-                imgScene.setImageResource(R.drawable.scene_4_4_white);
-            }
-            text.setText(R.string.scene_4_4);
-        }
-
         btnNext.setOnClickListener(v -> {
             switch (sceneIndex[0]) {
                 case 1:
-                    imgScene.setImageResource(R.drawable.scene_4_5_1);
-                    text.setText(R.string.scene_4_5_1);
+                    if ("black".equals(color)) {
+                        imgScene.setImageResource(R.drawable.scene_4_6_2_black);
+                    } else if ("orange".equals(color)) {
+                        imgScene.setImageResource(R.drawable.scene_4_6_2_orange);
+                    } else if ("white".equals(color)) {
+                        imgScene.setImageResource(R.drawable.scene_4_6_2_white);
+                    }
+                    text.setText(R.string.scene_4_6_2);
                     sceneIndex[0] = 2;
                     break;
-                case 2:
-                    text.setText(R.string.scene_4_5_2);
-                    sceneIndex[0] = 3;
-                    break;
                 default:
-                    Intent intent = new Intent(Scene4.this, Action6.class);
+                    Intent intent = new Intent(Scene4.this, Ending.class);
                     intent.putExtra("color", color);
                     intent.putExtra("book", book);
+                    intent.putExtra("endingType", "bad");
                     startActivity(intent);
-                    finish();
                     break;
             }
         });

@@ -37,18 +37,18 @@ public class Action5 extends AppCompatActivity {
         btnNo.setText(R.string.action_5_choice_2);
 
         btnYes.setOnClickListener(v -> {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("color", color);
-            resultIntent.putExtra("book", "yes");
-            setResult(RESULT_OK, resultIntent);
+            Intent intent = new Intent(Action5.this, Scene4.class);
+            intent.putExtra("color", color);
+            intent.putExtra("book", "yes");
+            startActivity(intent);
             finish();
         });
 
         btnNo.setOnClickListener(v -> {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("color", color);
-            resultIntent.putExtra("book", "no");
-            setResult(RESULT_OK, resultIntent);
+            Intent intent = new Intent(Action5.this, Scene4.class);
+            intent.putExtra("color", color);
+            intent.putExtra("book", "no");
+            startActivity(intent);
             finish();
         });
     }

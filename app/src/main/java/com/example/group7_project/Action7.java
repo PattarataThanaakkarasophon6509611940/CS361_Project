@@ -29,31 +29,27 @@ public class Action7  extends AppCompatActivity {
 
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
-        if ("black".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_black);
-        } else if ("orange".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_orange);
-        } else if ("white".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_white);
-        }
-
-        // ค้นหา View
         Button btnYes = findViewById(R.id.btnYes);
         Button btnNo = findViewById(R.id.btnNo);
+
+        imgScene.setImageResource(R.drawable.scene_5_3_1);
+        text.setText(R.string.action_7);
+        btnNo.setText(R.string.action_7_choice_1);
+        btnYes.setText(R.string.action_7_choice_2);
 
         btnNo.setOnClickListener(v -> {
             Intent intent = new Intent(Action7.this, Ending.class);
             intent.putExtra("color", color);
-            intent.putExtra("endingType", "true");
-            startActivity(intent); // เปิดหน้า Scene Bad Ending
+            intent.putExtra("endingType", "sad");
+            startActivity(intent);
             finish();
         });
 
         btnYes.setOnClickListener(v -> {
             Intent intent = new Intent(Action7.this, Ending.class);
             intent.putExtra("color", color);
-            intent.putExtra("endingType", "sad");
-            startActivity(intent); // เปิดหน้า Scene3
+            intent.putExtra("endingType", "true");
+            startActivity(intent);
         });
 
     }

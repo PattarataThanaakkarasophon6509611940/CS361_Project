@@ -23,14 +23,12 @@ public class Scene2 extends AppCompatActivity {
             return insets;
         });
 
-        // รับค่าสีจาก Action1
         String color = getIntent().getStringExtra("color");
 
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnNext = findViewById(R.id.btnNext);
 
-        // ใช้ค่าสีเพื่อเลือกแสดง Scene 2 ที่เหมาะสม
         if ("black".equals(color)) {
             imgScene.setImageResource(R.drawable.scene_2_2_black);
             text.setText(R.string.scene_2_2_1);
@@ -53,7 +51,6 @@ public class Scene2 extends AppCompatActivity {
                 startActivity(intent); // เปิดหน้า Action2
             });
         });
-
     }
 
 }

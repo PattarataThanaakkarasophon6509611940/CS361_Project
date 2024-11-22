@@ -17,7 +17,7 @@ public class Action6 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.action_3);
+        setContentView(R.layout.action_6);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -30,23 +30,20 @@ public class Action6 extends AppCompatActivity {
         Button btnPass = findViewById(R.id.btnPass);
         Button btnFail = findViewById(R.id.btnFail);
 
-        ImageView imgScene = findViewById(R.id.scene);
-
         btnPass.setOnClickListener(v -> {
             Intent intent = new Intent(Action6.this, Scene5.class);
             intent.putExtra("color", color);
             intent.putExtra("book", book);
-            intent.putExtra("status", "pass");
             startActivity(intent);
             finish();
         });
 
         btnFail.setOnClickListener(v -> {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("color", color);
-            resultIntent.putExtra("book", book);
-            resultIntent.putExtra("status", "fail");
-            setResult(RESULT_OK, resultIntent);
+            Intent intent = new Intent(Action6.this, Scene4.class);
+            intent.putExtra("color", color);
+            intent.putExtra("book", book);
+            intent.putExtra("result", "overtime");
+            startActivity(intent);
             finish();
         });
     }
