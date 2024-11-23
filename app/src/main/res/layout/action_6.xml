@@ -5,51 +5,48 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/action6_background">
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/headerAction6_height"
+        android:text="@string/action6_header"
+        android:background="@color/headerAction6"
+        android:textSize="@dimen/headerAction6_textSize"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:shadowColor="@color/shadowAction6"
+        android:shadowDx="8"
+        android:shadowDy="8"
+        android:shadowRadius="4"/>
 
-        <ImageView
-            android:id="@+id/scene"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/scene_4_5_1"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:id="@+id/imgSetting"
-            android:layout_width="@dimen/btnSetting"
-            android:layout_height="@dimen/btnSetting"
-            android:layout_marginStart="@dimen/btnSettingMargin"
-            android:layout_marginTop="@dimen/btnSettingMargin"
-            app:srcCompat="@drawable/setting"
-            tools:ignore="ContentDescription" />
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/btnFail"
+    <TextView
+        android:id="@+id/timerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/btnChoice2Action2_marginTop"
-        android:width="@dimen/btnChoice1Action2_Width"
-        android:backgroundTint="@color/btn"
-        android:text="ไม่ผ่าน"
+        android:textSize="@dimen/timerAction6_textSize"
+        android:textStyle="bold"
+        android:layout_gravity="center"
         android:textColor="@color/text"
-        android:textSize="@dimen/fontSize" />
+        android:layout_marginTop="@dimen/marginTopAction6"
+        android:layout_marginBottom="@dimen/marginBottomAction6"
+        android:text="@string/action6_timeLeft" />
 
-    <Button
-        android:id="@+id/btnPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:width="@dimen/btnChoice1Action2_Width"
-        android:backgroundTint="@color/btn"
-        android:gravity="center_horizontal"
-        android:text="ผ่าน"
-        android:textColor="@color/text"
-        android:textSize="@dimen/fontSize" />
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/spacingAction6"
+        android:numColumns="2"
+        android:padding="@dimen/spacingAction6"
+        android:stretchMode="columnWidth"
+        android:textColorHint="@color/text"
+        android:verticalSpacing="@dimen/spacingAction6" />
 
 </LinearLayout>

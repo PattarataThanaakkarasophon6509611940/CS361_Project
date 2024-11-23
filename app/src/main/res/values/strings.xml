@@ -139,6 +139,14 @@
     <string name="scene_5_5_2">"หากเจ้าเลือกกอบกู้ข้าและใช้พลังอย่างระมัดระวัง เจ้าต้องแบกรับภาระหนักอึ้งเพื่อปกป้องสมดุลของพลัง
         ข้าจะมอบพลังให้เจ้า แต่จงระวังอย่าให้เจ้าเดินซ้ำรอยบรรพบุรุษ"</string>
 
+    <!-- Action 6-->
+    <string name="action6_header">ประตูแห่งปัญญา</string>
+    <string name="action6_timeLeft">เวลาคงเหลือ: 15 วินาที</string>
+    <string name="action6_textLeft">เวลาคงเหลือ: </string>
+    <string name="action6_textRight"> วินาที</string>
+    <string name="action6_timeUp">หมดเวลา !</string>
+    <string name="action6_notMatch">ไม่ถูกต้อง !</string>
+
     <!-- Action 7-->
         <string name="action_7">หลังจากที่คุณรู้ความจริง คุณต้องการทำอย่างไรกับคริสตัลแห่งเวลา</string>
         <string name="action_7_choice_1">ทางเลือกใหม่ คือ ดูดซับพลังแห่งดารา</string>

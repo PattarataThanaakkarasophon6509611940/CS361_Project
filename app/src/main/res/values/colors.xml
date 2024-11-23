@@ -4,4 +4,9 @@
     <color name="white">#FFFFFFFF</color>
     <color name="text">#4D3700</color>
     <color name="btn">#FBCA7C</color>
+
+    <!--Action 6-->
+    <color name="headerAction6">#043b47</color>
+    <color name="shadowAction6">#80000000</color>
+
 </resources>

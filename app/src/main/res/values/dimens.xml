@@ -33,5 +33,13 @@
     <dimen name="btnChoice1Action2_Width">200dp</dimen>
     <dimen name="btnChoice1Action2_Height">80dp</dimen>
 
+    <!-- Action 6 -->
+    <dimen name="headerAction6_height">60dp</dimen>
+    <dimen name="spacingAction6">0dp</dimen>
+    <dimen name="marginTopAction6">20dp</dimen>
+    <dimen name="marginBottomAction6">30dp</dimen>
+    <dimen name="headerAction6_textSize">30sp</dimen>
+    <dimen name="timerAction6_textSize">20sp</dimen>
+
 
 </resources>
