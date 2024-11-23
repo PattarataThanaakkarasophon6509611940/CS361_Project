@@ -15,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class Scene2 extends AppCompatActivity {
 
     private int sceneIndex = 1;
+    private Setting setting;
+    private DatabaseHelper dbHelper;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,13 @@ public class Scene2 extends AppCompatActivity {
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnNext = findViewById(R.id.btnNext);
+        ImageView btnSetting = findViewById(R.id.imgSetting);
+
+        setting = new Setting(this);
+
+        btnSetting.setOnClickListener(v -> {
+            setting.showDialog("Scene1",sceneIndex);
+        });
 
         if ("black".equals(color)) {
             imgScene.setImageResource(R.drawable.scene_2_2_black);
@@ -43,18 +52,6 @@ public class Scene2 extends AppCompatActivity {
             text.setText(R.string.scene_2_2_1);
         }
 
-        if ("black".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_black);
-            text.setText(R.string.scene_2_2_1);
-        } else if ("orange".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_orange);
-            text.setText(R.string.scene_2_2_1);
-        } else if ("white".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_white);
-            text.setText(R.string.scene_2_2_1);
-        }
-
-        // ตั้งค่า OnClickListener สำหรับการเปลี่ยน Sub-scene
         btnNext.setOnClickListener(v -> {
             switch (sceneIndex) {
                 case 1:
@@ -73,7 +70,6 @@ public class Scene2 extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.saveLastScene("Scene2", sceneIndex); // บันทึกสถานะ Sub-scene ล่าสุดใน SQLite
+        dbHelper.saveLastSubscene("Scene2", sceneIndex);
     }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- modal_setting.xml -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/modalWidth"
+    android:layout_height="@dimen/modalHeight"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="40dp"
+        android:background="@drawable/modal_background"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnResume"
+            android:layout_width="@dimen/btnModal_w"
+            android:layout_height="wrap_content"
+            android:text="@string/resume"
+            android:textColor="@color/text"
+            android:backgroundTint="@color/btn"/>
+
+        <Button
+            android:id="@+id/btnSaveAndExit"
+            android:layout_width="@dimen/btnModal_w"
+            android:layout_height="wrap_content"
+            android:text="@string/saveAndExit"
+            android:textColor="@color/text"
+            android:layout_marginTop="@dimen/btnMarginTop"
+            android:backgroundTint="@color/btn"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

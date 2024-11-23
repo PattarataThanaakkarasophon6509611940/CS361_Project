@@ -7,6 +7,9 @@
     <string name="nextButton">ต่อไป   ></string>
     <string name="photoWithLuca">ร่วมถ่ายรูปกับลูก้า !</string>
 
+    <string name="saveAndExit">บันทึกและกลับหน้าหลัก</string>
+    <string name="resume">เล่นต่อ</string>
+
     <string name="noProgress">ไม่มีเกมที่บันทึกไว้</string>
 
     <!-- Story 1 -->

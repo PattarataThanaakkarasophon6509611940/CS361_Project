@@ -3,6 +3,7 @@ package com.example.group7_project;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Action1 extends AppCompatActivity {
     private int sceneIndex = 1;
+    private Setting setting;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +31,17 @@ public class Action1 extends AppCompatActivity {
         final Button btnBlack = findViewById(R.id.btnBlack);
         final Button btnOrange = findViewById(R.id.btnOrange);
         final Button btnWhite = findViewById(R.id.btnWhite);
+        ImageView btnSetting = findViewById(R.id.imgSetting);
 
         btnBlack.setOnClickListener(v -> sendColor("black"));
         btnOrange.setOnClickListener(v -> sendColor("orange"));
         btnWhite.setOnClickListener(v -> sendColor("white"));
+
+        setting = new Setting(this);
+
+        btnSetting.setOnClickListener(v -> {
+            setting.showDialog("Action1",sceneIndex);
+        });
 
     }
 
@@ -39,7 +49,7 @@ public class Action1 extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.saveLastScene("Action1", sceneIndex);
+        dbHelper.saveLastSubscene("Action1", sceneIndex);
     }
 
     private void sendColor(String color) {

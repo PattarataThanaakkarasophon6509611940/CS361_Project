@@ -16,7 +16,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,46 +32,69 @@ public class MainActivity extends AppCompatActivity {
 
         btnContinue.setOnClickListener(v -> {
             DatabaseHelper dbHelper = new DatabaseHelper(this);
-            Cursor cursor = dbHelper.getLastProgress();
+            Cursor cursor = dbHelper.getLastSubscene();
 
             if (cursor != null && cursor.moveToFirst()) {
-                String scene = cursor.getString(cursor.getColumnIndexOrThrow("scene"));
-                int subscene = cursor.getInt(cursor.getColumnIndexOrThrow("subscene"));
+                String scene = cursor.getString(0);
+                int subscene = cursor.getInt(1);
                 cursor.close();
 
-                Intent intent;
-                switch (scene) {
-                    case "Scene1":
-                        intent = new Intent(MainActivity.this, Scene1.class);
-                        break;
-                    case "Scene2":
-                        intent = new Intent(MainActivity.this, Scene2.class);
-                        break;
-                    case "Scene3":
-                        intent = new Intent(MainActivity.this, Scene3.class);
-                        break;
-                    case "Scene4":
-                        intent = new Intent(MainActivity.this, Scene1.class);
-                        break;
-                    case "Scene5":
-                        intent = new Intent(MainActivity.this, Scene2.class);
-                        break;
-                    default:
-                        intent = null;
-                        break;
-                }
+                System.out.println(scene);
+                System.out.println(subscene);
+
+                Intent intent = getSceneIntent(scene); // ใช้ฟังก์ชันเพื่อหา Intent ที่เหมาะสม
                 if (intent != null) {
-                    intent.putExtra("subscene", subscene);
+                    intent.putExtra("subscene", subscene); // ส่งค่า subscene ไปยัง Scene
                     startActivity(intent);
                 }
             } else {
+                assert cursor != null;
+                cursor.close();
                 Toast.makeText(this, R.string.noProgress, Toast.LENGTH_SHORT).show();
             }
+
+
         });
         btnNewGame.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Scene1.class);
             intent.putExtra("subscene", 1);
             startActivity(intent);
         });
+    }
+    private Intent getSceneIntent(String scene) {
+        try {
+            switch (scene) {
+                case "Scene1":
+                    return new Intent(MainActivity.this, Scene1.class);
+                case "Scene2":
+                    return new Intent(MainActivity.this, Scene2.class);
+                case "Scene3":
+                    return new Intent(MainActivity.this, Scene3.class);
+                case "Scene4":
+                    return new Intent(MainActivity.this, Scene4.class);
+                case "Scene5":
+                    return new Intent(MainActivity.this, Scene5.class);
+                case "Action1":
+                    return new Intent(MainActivity.this, Action1.class);
+                case "Action2":
+                    return new Intent(MainActivity.this, Action2.class);
+                case "Action3":
+                    return new Intent(MainActivity.this, Action3.class);
+                case "Action4":
+                    return new Intent(MainActivity.this, Action4.class);
+                case "Action5":
+                    return new Intent(MainActivity.this, Action5.class);
+                case "Action6":
+                    return new Intent(MainActivity.this, Action6.class);
+                case "Action7":
+                    return new Intent(MainActivity.this, Action7.class);
+                default:
+                    throw new IllegalArgumentException("Unknown scene: " + scene);
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Error loading saved progress.", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        return null;
     }
 }

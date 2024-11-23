@@ -2,6 +2,7 @@ package com.example.group7_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,10 +15,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class Scene1 extends AppCompatActivity {
     private int sceneIndex = 1;
+    private Setting setting;
+    private DatabaseHelper dbHelper;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        dbHelper = new DatabaseHelper(this);
         setContentView(R.layout.scene_1);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -28,8 +32,15 @@ public class Scene1 extends AppCompatActivity {
         Button btnNext = findViewById(R.id.btnNext);
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
+        ImageView btnSetting = findViewById(R.id.imgSetting);
 
         loadSubscene(sceneIndex, imgScene, text);
+
+        setting = new Setting(this);
+
+        btnSetting.setOnClickListener(v -> {
+            setting.showDialog("Scene1",sceneIndex);
+        });
 
         btnNext.setOnClickListener(v -> {
             sceneIndex++;
@@ -67,8 +78,6 @@ public class Scene1 extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.saveLastScene("Scene1", sceneIndex);
+        dbHelper.saveLastSubscene("Scene1", sceneIndex);
     }
 }

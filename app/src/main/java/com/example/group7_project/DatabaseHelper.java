@@ -7,14 +7,20 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "game_progress.db";
+    private static final int DATABASE_VERSION = 1;
 
     public DatabaseHelper(Context context) {
-        super(context, "game_progress.db", null, 1);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE progress (id INTEGER PRIMARY KEY, scene TEXT, subscene INTEGER)");
+        String createTable = "CREATE TABLE progress (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "scene TEXT, " +
+                "subscene INTEGER);";
+        db.execSQL(createTable);
     }
 
     @Override
@@ -23,18 +29,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // บันทึกสถานะล่าสุด
-    public void saveLastScene(String scene, int subscene) {
+    public void saveLastSubscene(String scene, int subscene) {
         SQLiteDatabase db = this.getWritableDatabase();
+
+        // บันทึกข้อมูลใหม่
         ContentValues values = new ContentValues();
         values.put("scene", scene);
         values.put("subscene", subscene);
-        db.insertWithOnConflict("progress", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        db.insert("progress", null, values);
+
     }
 
-    // ดึงสถานะล่าสุด
-    public Cursor getLastProgress() {
+    public Cursor getLastSubscene() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM progress LIMIT 1", null);
+        return db.query("progress", new String[]{"scene", "subscene"},
+                null, null, null, null, "id DESC", "1");
     }
 }
