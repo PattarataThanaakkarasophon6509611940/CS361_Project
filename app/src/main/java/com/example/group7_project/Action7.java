@@ -51,6 +51,5 @@ public class Action7  extends AppCompatActivity {
             intent.putExtra("endingType", "true");
             startActivity(intent);
         });
-
     }
 }

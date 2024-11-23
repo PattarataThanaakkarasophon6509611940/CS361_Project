@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/scene"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/scene_b_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             tools:ignore="ContentDescription" />
 
         <ImageView
@@ -30,12 +30,12 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/background_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/bg_text"
             tools:ignore="ContentDescription" />
 
@@ -72,8 +72,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/endingTextNarginTop"
             android:gravity="center_horizontal"
-            android:textStyle="bold"
-            android:text="" />
+            android:text=""
+            android:textStyle="bold" />
 
     </FrameLayout>
 

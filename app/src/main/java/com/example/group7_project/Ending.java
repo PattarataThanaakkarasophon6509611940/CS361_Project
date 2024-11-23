@@ -104,6 +104,7 @@ public class Ending extends AppCompatActivity {
                             break;
                     }
                 });
+
                 break;
             case "bad":
                 imgScene.setImageResource(R.drawable.scene_b_1);
@@ -251,7 +252,7 @@ public class Ending extends AppCompatActivity {
                             }
                             sceneIndexTrue[0] = 3;
                             break;
-                        case 4:
+                        case 3:
                             setContentView(R.layout.scene_ending_photo);
                             if ("black".equals(color)) {
                                 text.setText(R.string.scene_t_2_2);
@@ -261,7 +262,7 @@ public class Ending extends AppCompatActivity {
                                 text.setText(R.string.scene_t_2_2);
                                 endingText.setText(R.string.ending);
                             }
-                            sceneIndexTrue[0] = 5;
+                            sceneIndexTrue[0] = 4;
                             break;
                         default:
                             Intent intent = new Intent(Ending.this, TakePhoto.class);

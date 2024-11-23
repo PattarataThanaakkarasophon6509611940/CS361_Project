@@ -20,7 +20,7 @@
 
     <!-- Action 1-->
     <dimen name="marginTopText_action1">30dp</dimen>
-    <dimen name="btnChoiceAction1_w">170dp</dimen>
+    <dimen name="btnChoiceAction1_w">155dp</dimen>
     <dimen name="btnChoiceAction1_h">70dp</dimen>
 
     <dimen name="btnChoiceAction1_margin">20dp</dimen>

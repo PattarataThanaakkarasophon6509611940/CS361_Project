@@ -28,13 +28,11 @@ public class Scene3 extends AppCompatActivity {
         Button btnNext = findViewById(R.id.btnNext);
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
-        // ตัวนับสถานะของ Scene 3
+
         final int[] sceneIndex = {1};
 
-        // รับค่าสีจาก Action2
         String color = getIntent().getStringExtra("color");
 
-        // แสดง Scene 3_1 ทันทีที่เปิด
         if ("black".equals(color)) {
             imgScene.setImageResource(R.drawable.scene_3_1_black);
         } else if ("orange".equals(color)) {
@@ -42,6 +40,7 @@ public class Scene3 extends AppCompatActivity {
         } else if ("white".equals(color)) {
             imgScene.setImageResource(R.drawable.scene_3_1_white);
         }
+        text.setText(R.string.scene_3_1);
 
         btnNext.setOnClickListener(v -> {
             switch (sceneIndex[0]) {

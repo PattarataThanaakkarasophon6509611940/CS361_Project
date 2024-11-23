@@ -41,7 +41,6 @@ public class Scene5 extends AppCompatActivity {
             startActivity(intent);
             finish();
         }else{
-
             if ("black".equals(color)) {
                 imgScene.setImageResource(R.drawable.scene_5_2_black);
             } else if ("orange".equals(color)) {
@@ -49,6 +48,59 @@ public class Scene5 extends AppCompatActivity {
             } else if ("white".equals(color)) {
                 imgScene.setImageResource(R.drawable.scene_5_2_white);
             }
+
+            final int[] sceneIndexSecret = {1};
+
+            btnNext.setOnClickListener(v -> {
+                switch (sceneIndexSecret[0]) {
+                    case 1:
+                        imgScene.setImageResource(R.drawable.scene_5_3_1);
+                        text.setText(R.string.scene_5_3_1);
+                        sceneIndexSecret[0] = 2;
+                        break;
+                    case 2:
+                        text.setText(R.string.scene_5_3_2);
+                        sceneIndexSecret[0] = 3;
+                        break;
+                    case 3:
+                        text.setText(R.string.scene_5_3_3);
+                        sceneIndexSecret[0] = 4;
+                        break;
+                    case 4:
+                        if ("black".equals(color)) {
+                            imgScene.setImageResource(R.drawable.scene_5_4_1_black);
+                        } else if ("orange".equals(color)) {
+                            imgScene.setImageResource(R.drawable.scene_5_4_1_orange);
+                        } else if ("white".equals(color)) {
+                            imgScene.setImageResource(R.drawable.scene_5_4_1_white);
+                        }
+                        text.setText(R.string.scene_5_4_1);
+                        sceneIndexSecret[0] = 5;
+                        break;
+                    case 5:
+                        text.setText(R.string.scene_5_4_2);
+                        sceneIndexSecret[0] = 6;
+                        break;
+                    case 6:
+                        text.setText(R.string.scene_5_4_3);
+                        sceneIndexSecret[0] = 7;
+                        break;
+                    case 7:
+                        imgScene.setImageResource(R.drawable.scene_5_3_1);
+                        text.setText(R.string.scene_5_5_1);
+                        sceneIndexSecret[0] = 8;
+                        break;
+                    case 8:
+                        text.setText(R.string.scene_5_5_2);
+                        sceneIndexSecret[0] = 9;
+                        break;
+                    default:
+                        Intent intent = new Intent(Scene5.this, Action7.class);
+                        intent.putExtra("color", color);
+                        startActivity(intent);
+                        break;
+                }
+            });
         }
 
     }

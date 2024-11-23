@@ -49,8 +49,18 @@ public class Scene4 extends AppCompatActivity {
         if ("yes".equals(book)) {
             imgScene.setImageResource(R.drawable.scene_4_3_2);
             text.setText(R.string.scene_4_3_2);
+
+            btnNext.setOnClickListener(v -> {
+                afterBook(color, text, imgScene, btnNext, sceneIndex,book);
+            });
+        }else{
+            afterBook(color, text, imgScene, btnNext, sceneIndex,book);
         }
 
+
+    }
+    private void afterBook(String color, TextView text, ImageView imgScene, Button btnNext, int[] sceneIndex,String book) {
+        // ตั้งค่า scene_4_4 ตามสี
         if ("black".equals(color)) {
             imgScene.setImageResource(R.drawable.scene_4_4_black);
         } else if ("orange".equals(color)) {
@@ -79,8 +89,6 @@ public class Scene4 extends AppCompatActivity {
                     break;
             }
         });
-
-
     }
 
     private void setupInitialScene(String color) {
