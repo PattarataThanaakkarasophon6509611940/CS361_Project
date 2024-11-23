@@ -5,7 +5,9 @@
     <string name="btnContinue">เล่นต่อ</string>
 
     <string name="nextButton">ต่อไป   ></string>
-    <string name="photoWithLuka">ร่วมถ่ายรูปกับลูก้า !</string>
+    <string name="photoWithLuca">ร่วมถ่ายรูปกับลูก้า !</string>
+
+    <string name="noProgress">ไม่มีเกมที่บันทึกไว้</string>
 
     <!-- Story 1 -->
 

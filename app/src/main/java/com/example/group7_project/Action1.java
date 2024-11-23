@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 
 public class Action1 extends AppCompatActivity {
+    private int sceneIndex = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +29,24 @@ public class Action1 extends AppCompatActivity {
         final Button btnOrange = findViewById(R.id.btnOrange);
         final Button btnWhite = findViewById(R.id.btnWhite);
 
-        // ตั้งค่า OnClickListener สำหรับปุ่มแต่ละปุ่ม
         btnBlack.setOnClickListener(v -> sendColor("black"));
         btnOrange.setOnClickListener(v -> sendColor("orange"));
         btnWhite.setOnClickListener(v -> sendColor("white"));
 
     }
-    // ฟังก์ชันสำหรับส่งผลลัพธ์กลับไปยัง Scene2
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        dbHelper.saveLastScene("Action1", sceneIndex);
+    }
+
     private void sendColor(String color) {
         Intent intent = new Intent(Action1.this, Scene2.class);
         intent.putExtra("color", color);
         startActivity(intent);
-
+        finish();
     }
 }
+

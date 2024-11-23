@@ -61,7 +61,7 @@
             android:width="@dimen/btnLukaPhotoWidth"
             android:height="@dimen/btnHeight"
             android:backgroundTint="@color/btn"
-            android:text="@string/photoWithLuka"
+            android:text="@string/photoWithLuca"
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
 

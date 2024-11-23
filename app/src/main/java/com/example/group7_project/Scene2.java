@@ -13,6 +13,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Scene2 extends AppCompatActivity {
+
+    private int sceneIndex = 1;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -40,17 +43,37 @@ public class Scene2 extends AppCompatActivity {
             text.setText(R.string.scene_2_2_1);
         }
 
-        // ตั้งค่า OnClickListener สำหรับ Scene 2
-        btnNext.setOnClickListener(v -> {
-            text.setText(R.string.scene_2_2_2);
+        if ("black".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_2_2_black);
+            text.setText(R.string.scene_2_2_1);
+        } else if ("orange".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_2_2_orange);
+            text.setText(R.string.scene_2_2_1);
+        } else if ("white".equals(color)) {
+            imgScene.setImageResource(R.drawable.scene_2_2_white);
+            text.setText(R.string.scene_2_2_1);
+        }
 
-            // Intent ไปยัง Action2 เมื่อ Scene 2 จบ
-            btnNext.setOnClickListener(v2 -> {
-                Intent intent = new Intent(Scene2.this, Action2.class);
-                intent.putExtra("color", color); // ส่งค่า color ไปยัง Action2
-                startActivity(intent); // เปิดหน้า Action2
-            });
+        // ตั้งค่า OnClickListener สำหรับการเปลี่ยน Sub-scene
+        btnNext.setOnClickListener(v -> {
+            switch (sceneIndex) {
+                case 1:
+                    text.setText(R.string.scene_2_2_2);
+                    sceneIndex = 2;
+                    break;
+                default:
+                    Intent intent = new Intent(Scene2.this, Action2.class);
+                    intent.putExtra("color", color);
+                    startActivity(intent);
+                    finish();
+                    break;
+            }
         });
     }
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        dbHelper.saveLastScene("Scene2", sceneIndex); // บันทึกสถานะ Sub-scene ล่าสุดใน SQLite
+    }
 }

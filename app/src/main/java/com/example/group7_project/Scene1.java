@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Scene1 extends AppCompatActivity {
+    private int sceneIndex = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,33 +29,46 @@ public class Scene1 extends AppCompatActivity {
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
 
-        // ตัวนับสถานะของ Scene 1
-        final int[] sceneIndex = {1};
+        loadSubscene(sceneIndex, imgScene, text);
 
         btnNext.setOnClickListener(v -> {
-            switch (sceneIndex[0]) {
-                case 1:
-                    imgScene.setImageResource(R.drawable.scene_1_2);
-                    text.setText(R.string.scene_1_2);
-                    sceneIndex[0] = 2;
-                    break;
-                case 2:
-                    imgScene.setImageResource(R.drawable.scene_1_3);
-                    text.setText(R.string.scene_1_3);
-                    sceneIndex[0] = 3;
-                    break;
-                case 3:
-                    imgScene.setImageResource(R.drawable.scene_1_4);
-                    text.setText(R.string.scene_1_4);
-                    sceneIndex[0] = 4;
-                    break;
-                default:
-                    // เมื่อจบ Scene 1 ให้ไปที่ Action1
-                    Intent intent = new Intent(Scene1.this, Action1.class);
-                    startActivity(intent);
-                    break;
+            sceneIndex++;
+            if (sceneIndex > 4) {
+                Intent intent = new Intent(Scene1.this, Action1.class);
+                startActivity(intent);
+                finish();
+            } else {
+                loadSubscene(sceneIndex, imgScene, text);
             }
         });
 
     }//end onCreate
+
+    private void loadSubscene(int sceneIndex, ImageView imgScene, TextView text) {
+        switch (sceneIndex) {
+            case 1:
+                imgScene.setImageResource(R.drawable.scene_1_1);
+                text.setText(R.string.scene_1_1);
+                break;
+            case 2:
+                imgScene.setImageResource(R.drawable.scene_1_2);
+                text.setText(R.string.scene_1_2);
+                break;
+            case 3:
+                imgScene.setImageResource(R.drawable.scene_1_3);
+                text.setText(R.string.scene_1_3);
+                break;
+            case 4:
+                imgScene.setImageResource(R.drawable.scene_1_4);
+                text.setText(R.string.scene_1_4);
+                break;
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        dbHelper.saveLastScene("Scene1", sceneIndex);
+    }
 }
