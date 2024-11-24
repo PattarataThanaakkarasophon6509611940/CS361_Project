@@ -13,7 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Action3 extends AppCompatActivity {
-
+    private int sceneIndex = 1;
+    private String color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,27 +26,26 @@ public class Action3 extends AppCompatActivity {
             return insets;
         });
 
-        String color = getIntent().getStringExtra("color");
+        color = getIntent().getStringExtra("color");
 
         Button btnPass = findViewById(R.id.btnPass);
         Button btnFail = findViewById(R.id.btnFail);
+        ImageView btnSetting = findViewById(R.id.imgSetting);
 
         btnPass.setOnClickListener(v -> {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("color", color);
-            resultIntent.putExtra("status", "pass");
-            setResult(RESULT_OK, resultIntent);
+            Intent intent = new Intent(Action3.this, Scene3.class);
+            intent.putExtra("color", color);
+            intent.putExtra("status", "pass");
+            startActivity(intent);
             finish();
         });
 
         btnFail.setOnClickListener(v -> {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("color", color);
-            resultIntent.putExtra("status", "fail");
-            setResult(RESULT_OK, resultIntent);
+            Intent intent = new Intent(Action3.this, Scene3.class);
+            intent.putExtra("color", color);
+            intent.putExtra("status", "fail");
+            startActivity(intent);
             finish();
         });
-
     }
-
 }

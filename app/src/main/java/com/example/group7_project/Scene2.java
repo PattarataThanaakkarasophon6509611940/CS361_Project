@@ -17,59 +17,86 @@ public class Scene2 extends AppCompatActivity {
     private int sceneIndex = 1;
     private Setting setting;
     private DatabaseHelper dbHelper;
+    String color;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.scene_1);
+        dbHelper = new DatabaseHelper(this);
+        setting = new Setting(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        String color = getIntent().getStringExtra("color");
+        // รับค่าจาก Intent
+        int subscene = getIntent().getIntExtra("subscene", 1);
+        color = getIntent().getStringExtra("color");
 
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnNext = findViewById(R.id.btnNext);
         ImageView btnSetting = findViewById(R.id.imgSetting);
 
-        setting = new Setting(this);
+        // ตั้งค่า sceneIndex ให้ตรงกับ subscene
+        sceneIndex = subscene;
+
+        // โหลด subscene ที่ระบุ
+        loadSubscene(sceneIndex, imgScene, text, color);
 
         btnSetting.setOnClickListener(v -> {
-            setting.showDialog("Scene1",sceneIndex);
+            setting.showDialog("Scene2",sceneIndex,null,color);
         });
-
-        if ("black".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_black);
-            text.setText(R.string.scene_2_2_1);
-        } else if ("orange".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_orange);
-            text.setText(R.string.scene_2_2_1);
-        } else if ("white".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_2_2_white);
-            text.setText(R.string.scene_2_2_1);
-        }
 
         btnNext.setOnClickListener(v -> {
-            switch (sceneIndex) {
-                case 1:
-                    text.setText(R.string.scene_2_2_2);
-                    sceneIndex = 2;
-                    break;
-                default:
-                    Intent intent = new Intent(Scene2.this, Action2.class);
-                    intent.putExtra("color", color);
-                    startActivity(intent);
-                    finish();
-                    break;
+            sceneIndex++;
+            if (sceneIndex > 2) {
+                Intent intent = new Intent(Scene2.this, Action2.class);
+                intent.putExtra("color", color);
+                startActivity(intent);
+                finish();
+                dbHelper.close();
+            } else {
+                loadSubscene(sceneIndex, imgScene, text, color);
             }
         });
+
+    }
+    private void loadSubscene(int sceneIndex, ImageView imgScene, TextView text, String color) {
+        switch (sceneIndex) {
+            case 1:
+                if ("black".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_2_2_black);
+                } else if ("orange".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_2_2_orange);
+                } else if ("white".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_2_2_white);
+                }
+                text.setText(R.string.scene_2_2_1);
+
+                break;
+            case 2:
+                if ("black".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_2_2_black);
+                } else if ("orange".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_2_2_orange);
+                } else if ("white".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_2_2_white);
+                }
+                text.setText(R.string.scene_2_2_2);
+                break;
+            default:
+                text.setText(R.string.invalidSubscene);
+                imgScene.setImageDrawable(null); // แสดงภาพว่างกรณีไม่มี subscene
+                break;
+        }
     }
     @Override
     protected void onPause() {
         super.onPause();
-        dbHelper.saveLastSubscene("Scene2", sceneIndex);
+        dbHelper.saveLastSubscene("Scene2", sceneIndex,null,color);
+        dbHelper.close();
     }
 }

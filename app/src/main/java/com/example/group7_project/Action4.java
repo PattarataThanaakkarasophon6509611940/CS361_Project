@@ -13,10 +13,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Action4 extends AppCompatActivity {
+    private int sceneIndex = 1;
+    private Setting setting;
+    private DatabaseHelper dbHelper;
+    String color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        dbHelper = new DatabaseHelper(this);
+        setting = new Setting(this);
         setContentView(R.layout.action_2);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -24,15 +30,20 @@ public class Action4 extends AppCompatActivity {
             return insets;
         });
 
-        // รับค่า color จาก Intent
-        String color = getIntent().getStringExtra("color");
-
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
-
-        // ค้นหา View
         Button btnYes = findViewById(R.id.btnYes);
         Button btnNo = findViewById(R.id.btnNo);
+        ImageView btnSetting = findViewById(R.id.imgSetting);
+
+        color = getIntent().getStringExtra("color");
+        int subscene = getIntent().getIntExtra("subscene", 1);
+
+        sceneIndex = subscene;
+
+        btnSetting.setOnClickListener(v -> {
+            setting.showDialog("Action4",sceneIndex,null,color);
+        });
 
         if ("black".equals(color)) {
             imgScene.setImageResource(R.drawable.scene_3_5_black);
@@ -60,5 +71,11 @@ public class Action4 extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dbHelper.saveLastSubscene("Action4", sceneIndex, null, color);
     }
 }

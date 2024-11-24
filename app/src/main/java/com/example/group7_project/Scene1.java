@@ -22,6 +22,7 @@ public class Scene1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         dbHelper = new DatabaseHelper(this);
+        setting = new Setting(this);
         setContentView(R.layout.scene_1);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -29,17 +30,23 @@ public class Scene1 extends AppCompatActivity {
             return insets;
         });
 
+        dbHelper.printLastSubscene(); // เรียกใช้เมธอดเพื่อพิมพ์ข้อมูล
+
+        int subscene = getIntent().getIntExtra("subscene", 1);
+
         Button btnNext = findViewById(R.id.btnNext);
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         ImageView btnSetting = findViewById(R.id.imgSetting);
 
+        // ตั้งค่า sceneIndex ให้ตรงกับ subscene
+        sceneIndex = subscene;
+
+        // โหลด subscene ที่ระบุ
         loadSubscene(sceneIndex, imgScene, text);
 
-        setting = new Setting(this);
-
         btnSetting.setOnClickListener(v -> {
-            setting.showDialog("Scene1",sceneIndex);
+            setting.showDialog("Scene1",sceneIndex,null,null);
         });
 
         btnNext.setOnClickListener(v -> {
@@ -73,11 +80,15 @@ public class Scene1 extends AppCompatActivity {
                 imgScene.setImageResource(R.drawable.scene_1_4);
                 text.setText(R.string.scene_1_4);
                 break;
+            default:
+                text.setText(R.string.invalidSubscene);
+                imgScene.setImageDrawable(null); // แสดงภาพว่างกรณีไม่มี subscene
+                break;
         }
     }
     @Override
     protected void onPause() {
         super.onPause();
-        dbHelper.saveLastSubscene("Scene1", sceneIndex);
+        dbHelper.saveLastSubscene("Scene1", sceneIndex,null,null);
     }
 }

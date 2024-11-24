@@ -13,10 +13,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Action2 extends AppCompatActivity {
+    private int sceneIndex = 1;
+    private Setting setting;
+    private DatabaseHelper dbHelper;
+    String color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        dbHelper = new DatabaseHelper(this);
+        setting = new Setting(this);
         setContentView(R.layout.action_2);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -24,10 +30,15 @@ public class Action2 extends AppCompatActivity {
             return insets;
         });
 
-        String color = getIntent().getStringExtra("color");
+        color = getIntent().getStringExtra("color");
 
         ImageView imgScene = findViewById(R.id.scene);
-        TextView text = findViewById(R.id.textScene);
+        ImageView btnSetting = findViewById(R.id.imgSetting);
+
+        btnSetting.setOnClickListener(v -> {
+            setting.showDialog("Action2",sceneIndex,null,color);
+        });
+
         if ("black".equals(color)) {
             imgScene.setImageResource(R.drawable.scene_2_2_black);
         } else if ("orange".equals(color)) {
@@ -44,6 +55,7 @@ public class Action2 extends AppCompatActivity {
             intent.putExtra("color", color);
             intent.putExtra("endingType", "bad");
             startActivity(intent);
+            dbHelper.close();
             finish();
         });
 
@@ -51,8 +63,15 @@ public class Action2 extends AppCompatActivity {
             Intent intent = new Intent(Action2.this, Scene3.class);
             intent.putExtra("color", color);
             startActivity(intent);
+            dbHelper.close();
+            finish();
         });
 
     }
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dbHelper.saveLastSubscene("Action2", sceneIndex,null,color);
+        dbHelper.close();
+    }
 }

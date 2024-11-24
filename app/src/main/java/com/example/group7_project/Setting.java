@@ -17,7 +17,7 @@ public class Setting {
     }
 
     // ฟังก์ชันในการแสดง Modal
-    public void showDialog(String scene,int currentIndex) {
+    public void showDialog(String scene,int currentIndex,String book,String color) {
         // สร้าง Dialog Builder
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
@@ -45,18 +45,16 @@ public class Setting {
 
         // ตั้งค่าการคลิกปุ่ม Save and Exit
         btnSaveAndExit.setOnClickListener(v -> {
-            saveAndExit(scene,currentIndex); // บันทึกข้อมูลและออกจากเกม
+            saveAndExit(scene,currentIndex,book,color); // บันทึกข้อมูลและออกจากเกม
             dialog.dismiss(); // ปิด Dialog เมื่อคลิก Save and Exit
         });
-
         dialog.show();
     }
 
-    private void saveAndExit(String scene,int currentSubscene) {
+    private void saveAndExit(String scene,int currentSubscene,String book,String color) {
         DatabaseHelper dbHelper = new DatabaseHelper(activity);
-        dbHelper.saveLastSubscene(scene, currentSubscene);
+        dbHelper.saveLastSubscene(scene, currentSubscene,book,color);
         Intent intent = new Intent(activity, MainActivity.class);
         activity.startActivity(intent);
-
     }
 }

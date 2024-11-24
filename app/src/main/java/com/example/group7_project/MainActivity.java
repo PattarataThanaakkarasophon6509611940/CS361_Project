@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -32,19 +33,32 @@ public class MainActivity extends AppCompatActivity {
 
         btnContinue.setOnClickListener(v -> {
             DatabaseHelper dbHelper = new DatabaseHelper(this);
+
             Cursor cursor = dbHelper.getLastSubscene();
 
             if (cursor != null && cursor.moveToFirst()) {
-                String scene = cursor.getString(0);
-                int subscene = cursor.getInt(1);
+
+                String scene = cursor.getString(cursor.getColumnIndexOrThrow("scene"));
+                int subscene = cursor.getInt(cursor.getColumnIndexOrThrow("subscene"));
+                String book = cursor.isNull(cursor.getColumnIndexOrThrow("book")) ? null :
+                        cursor.getString(cursor.getColumnIndexOrThrow("book"));
+                String color = cursor.isNull(cursor.getColumnIndexOrThrow("color")) ? null :
+                        cursor.getString(cursor.getColumnIndexOrThrow("color"));
+
                 cursor.close();
 
                 System.out.println(scene);
                 System.out.println(subscene);
+                System.out.println(book);
+                System.out.println(color);
+
+                //dbHelper.resetDatabase();
 
                 Intent intent = getSceneIntent(scene); // ใช้ฟังก์ชันเพื่อหา Intent ที่เหมาะสม
                 if (intent != null) {
-                    intent.putExtra("subscene", subscene); // ส่งค่า subscene ไปยัง Scene
+                    intent.putExtra("subscene", subscene);
+                    intent.putExtra("book", book);
+                    intent.putExtra("color", color);
                     startActivity(intent);
                 }
             } else {
@@ -52,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 cursor.close();
                 Toast.makeText(this, R.string.noProgress, Toast.LENGTH_SHORT).show();
             }
-
-
         });
         btnNewGame.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, Scene1.class);
@@ -78,14 +90,14 @@ public class MainActivity extends AppCompatActivity {
                     return new Intent(MainActivity.this, Action1.class);
                 case "Action2":
                     return new Intent(MainActivity.this, Action2.class);
-                case "Action3":
-                    return new Intent(MainActivity.this, Action3.class);
+                //case "Action3":
+                //    return new Intent(MainActivity.this, Action3.class);
                 case "Action4":
                     return new Intent(MainActivity.this, Action4.class);
                 case "Action5":
                     return new Intent(MainActivity.this, Action5.class);
-                case "Action6":
-                    return new Intent(MainActivity.this, Action6.class);
+                //case "Action6":
+                //    return new Intent(MainActivity.this, Action6.class);
                 case "Action7":
                     return new Intent(MainActivity.this, Action7.class);
                 default:
@@ -97,4 +109,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
+
 }

@@ -22,6 +22,7 @@ public class Action1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.action_1);
+        dbHelper = new DatabaseHelper(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -40,23 +41,20 @@ public class Action1 extends AppCompatActivity {
         setting = new Setting(this);
 
         btnSetting.setOnClickListener(v -> {
-            setting.showDialog("Action1",sceneIndex);
+            setting.showDialog("Action1",sceneIndex,null,null);
         });
 
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        dbHelper.saveLastSubscene("Action1", sceneIndex);
-    }
-
     private void sendColor(String color) {
         Intent intent = new Intent(Action1.this, Scene2.class);
         intent.putExtra("color", color);
         startActivity(intent);
         finish();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dbHelper.saveLastSubscene("Action1", sceneIndex,null,null);
     }
 }
 

@@ -57,27 +57,6 @@ public class Action6 extends AppCompatActivity {
             return insets;
         });
 
-
-//        Button btnPass = findViewById(R.id.btnPass);
-//        Button btnFail = findViewById(R.id.btnFail);
-
-//        btnPass.setOnClickListener(v -> {
-//            Intent intent = new Intent(Action6.this, Scene5.class);
-//            intent.putExtra("color", color);
-//            intent.putExtra("book", book);
-//            startActivity(intent);
-//            finish();
-//        });
-//
-//        btnFail.setOnClickListener(v -> {
-//            Intent intent = new Intent(Action6.this, Scene4.class);
-//            intent.putExtra("color", color);
-//            intent.putExtra("book", book);
-//            intent.putExtra("result", "overtime");
-//            startActivity(intent);
-//            finish();
-//        });
-
         timerText = findViewById(R.id.timerText); // TextView for displaying timer
 
         // Start the timer

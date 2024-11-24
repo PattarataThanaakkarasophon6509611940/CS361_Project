@@ -12,6 +12,8 @@
 
     <string name="noProgress">ไม่มีเกมที่บันทึกไว้</string>
 
+    <string name="invalidSubscene">ฉากไม่ถูกต้อง</string>
+
     <!-- Story 1 -->
 
     <string name="scene_1_1">ในดินแดนลึกลับที่ชื่อว่า "แอนโดรา" </string>
