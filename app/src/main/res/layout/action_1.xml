@@ -14,10 +14,12 @@
 
         <ImageView
             android:id="@+id/scene"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/scene_2_1"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
 
         <ImageView
             android:id="@+id/imgSetting"
@@ -31,14 +33,16 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/background_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/bg_text"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/textScene"
@@ -60,7 +64,6 @@
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="@dimen/btnChoiceAction1_margin"
             android:layout_marginBottom="@dimen/btnNext"
-            android:width="@dimen/btnChoiceAction1_w"
             android:height="@dimen/btnChoiceAction1_h"
             android:backgroundTint="@color/btn"
             android:text="@string/action_1_black"
@@ -73,7 +76,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/btnChoiceAction1_margin"
-            android:width="@dimen/btnChoiceAction1_w"
             android:height="@dimen/btnChoiceAction1_h"
             android:backgroundTint="@color/btn"
             android:text="@string/action_1_white"
@@ -87,7 +89,6 @@
             android:layout_gravity="bottom|start"
             android:layout_marginStart="@dimen/btnChoiceAction1_margin"
             android:layout_marginBottom="@dimen/btnNext"
-            android:width="@dimen/btnChoiceAction1_w"
             android:height="@dimen/btnChoiceAction1_h"
             android:backgroundTint="@color/btn"
             android:text="@string/action_1_orange"

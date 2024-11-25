@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
@@ -11,14 +11,24 @@
 
 
     <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/scene"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/scene_0_1"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/heightLogo"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/logo"
             tools:ignore="ContentDescription" />
 
         <Button
@@ -29,15 +39,19 @@
             android:layout_marginTop="@dimen/btnAction0MarginTop"
             android:backgroundTint="@color/btn"
             android:text="@string/btnNewGame"
-            android:textColor="@color/text" />
+            android:textColor="@color/text"
+            android:textSize="@dimen/fontSizeAction0"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnContinue"
             android:layout_width="@dimen/btnAction0Width"
             android:layout_height="@dimen/btnAction0Height"
             android:layout_gravity="center"
+            android:textStyle="bold"
             android:layout_marginTop="@dimen/btnContinue"
             android:backgroundTint="@color/btn"
+            android:textSize="@dimen/fontSizeAction0"
             android:text="@string/btnContinue"
             android:textColor="@color/text" />
     </FrameLayout>

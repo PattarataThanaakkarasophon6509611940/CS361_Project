@@ -8,15 +8,17 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/scene"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/scene_1_1"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"/>
 
         <ImageView
             android:id="@+id/imgSetting"
@@ -37,7 +39,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/bg_text"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/textScene"

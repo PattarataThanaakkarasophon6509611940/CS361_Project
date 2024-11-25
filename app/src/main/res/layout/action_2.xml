@@ -13,10 +13,12 @@
 
         <ImageView
             android:id="@+id/scene"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/scene_2_1"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
 
         <ImageView
             android:id="@+id/imgSetting"
@@ -30,14 +32,16 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/background_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/bg_text"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/textScene"
@@ -58,7 +62,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/btnChoice2Action2_marginTop"
-            android:width="@dimen/btnChoice1Action2_Width"
             android:height="@dimen/btnChoice1Action2_Height"
             android:backgroundTint="@color/btn"
             android:text="@string/action_2_choice_2"
@@ -71,7 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/btnChoice1Action2_marginTop"
-            android:width="@dimen/btnChoice1Action2_Width"
             android:height="@dimen/btnChoiceAction1_h"
             android:backgroundTint="@color/btn"
             android:gravity="center"

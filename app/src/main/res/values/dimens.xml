@@ -17,11 +17,14 @@
     <dimen name="modalHeight">250dp</dimen>
     <dimen name="btnMarginTop">15dp</dimen>
 
+    <dimen name="heightLogo">500dp</dimen>
+
     <!-- Action 0 -->
-    <dimen name="btnAction0Width">200dp</dimen>
+    <dimen name="btnAction0Width">190dp</dimen>
     <dimen name="btnAction0Height">60dp</dimen>
-    <dimen name="btnAction0MarginTop">100dp</dimen>
-    <dimen name="btnContinue">180dp</dimen>
+    <dimen name="fontSizeAction0">18sp</dimen>
+    <dimen name="btnAction0MarginTop">160dp</dimen>
+    <dimen name="btnContinue">230dp</dimen>
 
     <!-- Action 1-->
     <dimen name="marginTopText_action1">30dp</dimen>
