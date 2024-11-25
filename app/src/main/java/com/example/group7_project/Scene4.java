@@ -37,62 +37,73 @@ public class Scene4 extends AppCompatActivity {
         book = getIntent().getStringExtra("book");
         String result = getIntent().getStringExtra("result");
 
-        // ตั้งค่า sceneIndex ให้ตรงกับ subscene
         sceneIndex = subscene;
 
         if ("overtime".equals(result)) {
-            handleOvertime(color, book);
-        } else if ("yes".equals(book)||"no".equals(book)){
-            handleBook(color,book);
-        } else {
-            setupInitialScene(color);
+            handleOvertime(color, book,8);
+        } else if(sceneIndex>=8&&sceneIndex<=9){
+            handleOvertime(color, book,sceneIndex);
+        }else if(sceneIndex>=4&&sceneIndex<=7){
+            handleBook(color, book, sceneIndex);
+        }else if ("yes".equals(book)||"no".equals(book)) {
+            handleBook(color, book,4);
+        } else if(sceneIndex<4){
+            setupInitialScene(sceneIndex ,color);
         }
-
     }
 
-    private void handleBook(String color,String book) {
-
+    private void handleBook(String color,String book,int sceneNumber) {
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnNext = findViewById(R.id.btnNext);
         ImageView btnSetting = findViewById(R.id.imgSetting);
 
+        sceneIndex = sceneNumber;
+
         btnSetting.setOnClickListener(v -> {
             setting.showDialog("Scene4",sceneIndex,book,color);
         });
 
-        if ("yes".equals(book)) {
+        if ("yes".equals(book)&&sceneNumber==4) {
             imgScene.setImageResource(R.drawable.scene_4_3_2);
             text.setText(R.string.scene_4_3_2);
-
             btnNext.setOnClickListener(v -> {
-                afterBook(color, text, imgScene, btnNext, sceneIndex,book);
+                afterBook(color, text, imgScene, btnNext, sceneNumber,book);
             });
         }else{
-            afterBook(color, text, imgScene, btnNext, sceneIndex,book);
+            afterBook(color, text, imgScene, btnNext, sceneNumber,book);
         }
     }
     private void afterBook(String color, TextView text, ImageView imgScene, Button btnNext, int sceneNumber,String book) {
-        sceneIndex = sceneNumber;
+        ImageView btnSetting = findViewById(R.id.imgSetting);
+
+        final int[] subNumber = {sceneNumber};
 
         loadSubsceneAfterBook(sceneIndex, imgScene, text);
 
+        btnSetting.setOnClickListener(v -> {
+            sceneIndex = subNumber[0];
+            setting.showDialog("Scene4",sceneIndex,book,color);
+        });
+
         btnNext.setOnClickListener(v -> {
-            sceneIndex++;
-            if (sceneIndex > 3) {
+            subNumber[0]++;
+            sceneIndex = subNumber[0];
+            System.out.println("after book : "+subNumber[0]);
+            if (subNumber[0] > 6) {
                 Intent intent = new Intent(Scene4.this, Action6.class);
                 intent.putExtra("color", color);
                 intent.putExtra("book", book);
                 startActivity(intent);
                 finish();
             } else {
-                loadSubsceneAfterBook(sceneIndex, imgScene, text);
+                loadSubsceneAfterBook(subNumber[0], imgScene, text);
             }
         });
     }
-    private void loadSubsceneAfterBook(int sceneIndex, ImageView imgScene, TextView text) {
-        switch (sceneIndex) {
-            case 1:
+    private void loadSubsceneAfterBook(int subNumber, ImageView imgScene, TextView text) {
+        switch (subNumber) {
+            case 4:
                 if ("black".equals(color)) {
                     imgScene.setImageResource(R.drawable.scene_4_4_black);
                 } else if ("orange".equals(color)) {
@@ -102,13 +113,14 @@ public class Scene4 extends AppCompatActivity {
                 }
                 text.setText(R.string.scene_4_4);
                 break;
-            case 2:
+            case 5:
                 imgScene.setImageResource(R.drawable.scene_4_5_1);
                 text.setText(R.string.scene_4_5_1);
                 break;
-            case 3:
+            case 6:
                 imgScene.setImageResource(R.drawable.scene_4_5_1);
                 text.setText(R.string.scene_4_5_2);
+                break;
             default:
                 text.setText(R.string.invalidSubscene);
                 imgScene.setImageDrawable(null);
@@ -116,74 +128,109 @@ public class Scene4 extends AppCompatActivity {
         }
     }
 
-    private void setupInitialScene(String color) {
+    private void setupInitialScene(int subscene,String color) {
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnNext = findViewById(R.id.btnNext);
+        ImageView btnSetting = findViewById(R.id.imgSetting);
 
-        if ("black".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_4_1_black);
-        } else if ("orange".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_4_1_orange);
-        } else if ("white".equals(color)) {
-            imgScene.setImageResource(R.drawable.scene_4_1_white);
-        }
-        text.setText(R.string.scene_4_1);
+        final int[] subNumber = {subscene};
 
-        final int[] sceneIndex = {1}; // ตัวนับสถานะ Scene
+        btnSetting.setOnClickListener(v -> {
+            sceneIndex = subNumber[0];
+            setting.showDialog("Scene4",sceneIndex,book,color);
+        });
+        loadSubscene(sceneIndex, imgScene, text,color);
 
         btnNext.setOnClickListener(v -> {
-            switch (sceneIndex[0]) {
-                case 1:
-                    imgScene.setImageResource(R.drawable.scene_4_2);
-                    text.setText(R.string.scene_4_2);
-                    sceneIndex[0] = 2;
-                    break;
-                case 2:
-                    imgScene.setImageResource(R.drawable.scene_4_3);
-                    text.setText(R.string.scene_4_3_1);
-                    sceneIndex[0] = 3;
-                    break;
-                default:
-                    Intent intent = new Intent(Scene4.this, Action5.class);
-                    intent.putExtra("color", color);
-                    startActivity(intent);
-                    break;
+            subNumber[0]++;
+            sceneIndex = subNumber[0];
+            if (subNumber[0] > 3) {
+                Intent intent = new Intent(Scene4.this, Action5.class);
+                intent.putExtra("color", color);
+                startActivity(intent);
+                finish();
+            } else {
+                loadSubscene(subNumber[0], imgScene, text,color);
             }
         });
     }
-
-    private void handleOvertime(String color, String book) {
+    private void loadSubscene(int sceneNumber, ImageView imgScene, TextView text, String color) {
+        switch (sceneNumber) {
+            case 1:
+                if ("black".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_4_1_black);
+                } else if ("orange".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_4_1_orange);
+                } else if ("white".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_4_1_white);
+                }
+                text.setText(R.string.scene_4_1);
+                break;
+            case 2:
+                imgScene.setImageResource(R.drawable.scene_4_2);
+                text.setText(R.string.scene_4_2);
+                break;
+            case 3:
+                imgScene.setImageResource(R.drawable.scene_4_3);
+                text.setText(R.string.scene_4_3_1);
+                break;
+            default:
+                text.setText(R.string.invalidSubscene);
+                imgScene.setImageDrawable(null); // แสดงภาพว่างกรณีไม่มี subscene
+                break;
+        }
+    }
+    private void handleOvertime(String color, String book,int sceneNumber) {
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnNext = findViewById(R.id.btnNext);
+        ImageView btnSetting = findViewById(R.id.imgSetting);
 
-        imgScene.setImageResource(R.drawable.scene_4_6_1);
-        text.setText(R.string.scene_4_6_1);
+        final int[] subNumber = {sceneNumber};
 
-        final int[] sceneIndex = {1};
+        btnSetting.setOnClickListener(v -> {
+            sceneIndex = subNumber[0];
+            setting.showDialog("Scene4",sceneIndex,book,color);
+        });
+
+        loadSubsceneOvertime(subNumber[0], imgScene, text,color);
+
         btnNext.setOnClickListener(v -> {
-            switch (sceneIndex[0]) {
-                case 1:
-                    if ("black".equals(color)) {
-                        imgScene.setImageResource(R.drawable.scene_4_6_2_black);
-                    } else if ("orange".equals(color)) {
-                        imgScene.setImageResource(R.drawable.scene_4_6_2_orange);
-                    } else if ("white".equals(color)) {
-                        imgScene.setImageResource(R.drawable.scene_4_6_2_white);
-                    }
-                    text.setText(R.string.scene_4_6_2);
-                    sceneIndex[0] = 2;
-                    break;
-                default:
-                    Intent intent = new Intent(Scene4.this, Ending.class);
-                    intent.putExtra("color", color);
-                    intent.putExtra("book", book);
-                    intent.putExtra("endingType", "bad");
-                    startActivity(intent);
-                    break;
+            subNumber[0]++;
+            sceneIndex = subNumber[0];
+            if (subNumber[0] > 9) {
+                Intent intent = new Intent(Scene4.this, EndingBad.class);
+                intent.putExtra("color", color);
+                intent.putExtra("book", book);
+                startActivity(intent);
+                finish();
+            }else {
+                loadSubsceneOvertime(subNumber[0], imgScene, text,color);
             }
         });
+    }
+    private void loadSubsceneOvertime(int sceneIndex, ImageView imgScene, TextView text, String color) {
+        switch (sceneIndex) {
+            case 8:
+                imgScene.setImageResource(R.drawable.scene_4_6_1);
+                text.setText(R.string.scene_4_6_1);
+                break;
+            case 9:
+                if ("black".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_4_6_2_black);
+                } else if ("orange".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_4_6_2_orange);
+                } else if ("white".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_4_6_2_white);
+                }
+                text.setText(R.string.scene_4_6_2);
+                break;
+            default:
+                text.setText(R.string.invalidSubscene);
+                imgScene.setImageDrawable(null); // แสดงภาพว่างกรณีไม่มี subscene
+                break;
+        }
     }
     @Override
     protected void onPause() {

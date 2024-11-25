@@ -49,7 +49,19 @@
             android:name=".Action7"
             android:exported="false" />
         <activity
-            android:name=".Ending"
+            android:name=".EndingSad"
+            android:exported="false" />
+        <activity
+            android:name=".EndingHappy"
+            android:exported="false" />
+        <activity
+            android:name=".EndingSecret"
+            android:exported="false" />
+        <activity
+            android:name=".EndingBad"
+            android:exported="false" />
+        <activity
+            android:name=".EndingTrue"
             android:exported="false" />
         <activity
             android:name=".TakePhoto"

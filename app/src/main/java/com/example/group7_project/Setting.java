@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AlertDialog;
 
+import kotlinx.coroutines.channels.Send;
+
 
 public class Setting {
     private Activity activity;
@@ -56,5 +58,6 @@ public class Setting {
         dbHelper.saveLastSubscene(scene, currentSubscene,book,color);
         Intent intent = new Intent(activity, MainActivity.class);
         activity.startActivity(intent);
+        dbHelper.close();
     }
 }

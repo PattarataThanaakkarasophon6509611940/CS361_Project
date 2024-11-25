@@ -13,10 +13,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Action5 extends AppCompatActivity {
+    private int sceneIndex = 1;
+    private Setting setting;
+    private DatabaseHelper dbHelper;
+    String color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        dbHelper = new DatabaseHelper(this);
+        setting = new Setting(this);
         setContentView(R.layout.action_2);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -24,12 +30,20 @@ public class Action5 extends AppCompatActivity {
             return insets;
         });
 
-        String color = getIntent().getStringExtra("color");
+        color = getIntent().getStringExtra("color");
+        int subscene = getIntent().getIntExtra("subscene",1);
 
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnYes = findViewById(R.id.btnYes);
         Button btnNo = findViewById(R.id.btnNo);
+        ImageView btnSetting = findViewById(R.id.imgSetting);
+
+        sceneIndex = subscene;
+
+        btnSetting.setOnClickListener(v -> {
+            setting.showDialog("Action5",sceneIndex,null,color);
+        });
 
         imgScene.setImageResource(R.drawable.scene_4_3);
         text.setText(R.string.action_5);
@@ -51,5 +65,11 @@ public class Action5 extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dbHelper.saveLastSubscene("Action5", sceneIndex,null,color);
+        dbHelper.close();
     }
 }

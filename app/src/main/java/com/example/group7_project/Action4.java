@@ -65,8 +65,7 @@ public class Action4 extends AppCompatActivity {
         });
 
         btnYes.setOnClickListener(v -> {
-            Intent intent = new Intent(Action4.this,Ending.class);
-            intent.putExtra("endingType", "happy");
+            Intent intent = new Intent(Action4.this,EndingHappy.class);
             intent.putExtra("color", color);
             startActivity(intent);
             finish();

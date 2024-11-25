@@ -2,6 +2,7 @@ package com.example.group7_project;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,90 +13,97 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Scene2 extends AppCompatActivity {
-
+public class EndingTrue extends AppCompatActivity {
     private int sceneIndex = 1;
     private Setting setting;
     private DatabaseHelper dbHelper;
     String color;
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.scene_1);
         dbHelper = new DatabaseHelper(this);
         setting = new Setting(this);
+        setContentView(R.layout.scene_ending);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // รับค่าจาก Intent
-        int subscene = getIntent().getIntExtra("subscene", 1);
         color = getIntent().getStringExtra("color");
+        int subscene = getIntent().getIntExtra("subscene",1);
 
         ImageView imgScene = findViewById(R.id.scene);
         TextView text = findViewById(R.id.textScene);
         Button btnNext = findViewById(R.id.btnNext);
+        TextView ending = findViewById(R.id.ending);
         ImageView btnSetting = findViewById(R.id.imgSetting);
 
-        // ตั้งค่า sceneIndex ให้ตรงกับ subscene
         sceneIndex = subscene;
-
-        // โหลด subscene ที่ระบุ
-        loadSubscene(sceneIndex, imgScene, text, color);
+        loadSubscene(sceneIndex, imgScene, text, color,ending);
 
         btnSetting.setOnClickListener(v -> {
-            setting.showDialog("Scene2",sceneIndex,null,color);
+            setting.showDialog("EndingTrue",sceneIndex,null,color);
         });
-
         btnNext.setOnClickListener(v -> {
             sceneIndex++;
-            if (sceneIndex > 2) {
-                Intent intent = new Intent(Scene2.this, Action2.class);
+            if (sceneIndex>3) {
+                Intent intent = new Intent(EndingTrue.this, TakePhoto.class);
                 intent.putExtra("color", color);
                 startActivity(intent);
                 finish();
-                dbHelper.close();
             } else {
-                loadSubscene(sceneIndex, imgScene, text, color);
+                loadSubscene(sceneIndex, imgScene, text, color,ending);
             }
         });
-
     }
-    private void loadSubscene(int sceneIndex, ImageView imgScene, TextView text, String color) {
+    private void loadSubscene(int sceneIndex, ImageView imgScene, TextView text, String color,TextView ending) {
         switch (sceneIndex) {
             case 1:
                 if ("black".equals(color)) {
-                    imgScene.setImageResource(R.drawable.scene_2_2_black);
+                    imgScene.setImageResource(R.drawable.scene_5_4_1_black);
                 } else if ("orange".equals(color)) {
-                    imgScene.setImageResource(R.drawable.scene_2_2_orange);
+                    imgScene.setImageResource(R.drawable.scene_5_4_1_orange);
                 } else if ("white".equals(color)) {
-                    imgScene.setImageResource(R.drawable.scene_2_2_white);
+                    imgScene.setImageResource(R.drawable.scene_5_4_1_white);
                 }
-                text.setText(R.string.scene_2_2_1);
+                text.setText(R.string.scene_t_1_1);
                 break;
             case 2:
                 if ("black".equals(color)) {
-                    imgScene.setImageResource(R.drawable.scene_2_2_black);
+                    imgScene.setImageResource(R.drawable.scene_t_2_1_black);
                 } else if ("orange".equals(color)) {
-                    imgScene.setImageResource(R.drawable.scene_2_2_orange);
+                    imgScene.setImageResource(R.drawable.scene_t_2_1_orange);
                 } else if ("white".equals(color)) {
-                    imgScene.setImageResource(R.drawable.scene_2_2_white);
+                    imgScene.setImageResource(R.drawable.scene_t_2_1_white);
                 }
-                text.setText(R.string.scene_2_2_2);
+                text.setText(R.string.scene_t_2_1);
+                break;
+            case 3:
+                Button btnNext = findViewById(R.id.btnNext);
+                Button btnTakePhoto= findViewById(R.id.btnTakePhoto);
+                if ("black".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_t_2_1_black);
+                } else if ("orange".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_t_2_1_orange);
+                } else if ("white".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_t_2_1_white);
+                }
+                text.setText(R.string.scene_t_2_2);
+                btnNext.setVisibility(View.GONE);
+                btnTakePhoto.setVisibility(View.VISIBLE);
+                ending.setText(R.string.ending);
                 break;
             default:
-                text.setText(R.string.invalidSubscene);
-                imgScene.setImageDrawable(null); // แสดงภาพว่างกรณีไม่มี subscene
                 break;
         }
     }
     @Override
     protected void onPause() {
         super.onPause();
-        dbHelper.saveLastSubscene("Scene2", sceneIndex,null,color);
+        dbHelper.saveLastSubscene("EndingTrue", sceneIndex,null,color);
         dbHelper.close();
     }
+
 }

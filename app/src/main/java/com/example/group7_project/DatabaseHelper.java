@@ -20,15 +20,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "scene TEXT, " +
                 "subscene INTEGER, " +
-                "book TEXT DEFAULT NULL, " + // คอลัมน์ book
-                "color TEXT DEFAULT NULL);"; // คอลัมน์ color
+                "book TEXT DEFAULT NULL, " +
+                "color TEXT DEFAULT NULL);";
         db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE name = 'progress'");
-        onCreate(db);
+        if (oldVersion < 2) {
+            db.execSQL("ALTER TABLE progress ADD COLUMN endingType TEXT DEFAULT NULL");
+        }
     }
 
     public void saveLastSubscene(String scene, int subscene, String book, String color) {

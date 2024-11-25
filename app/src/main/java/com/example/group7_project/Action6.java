@@ -45,6 +45,9 @@ public class Action6 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        color = getIntent().getStringExtra("color");
+        book = getIntent().getStringExtra("book");
         // Set status bar color to black
         getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.black));
 
@@ -118,7 +121,6 @@ public class Action6 extends AppCompatActivity {
         Intent intent = new Intent(Action6.this, Scene5.class);
         intent.putExtra("color", color);
         intent.putExtra("book", book);
-        intent.putExtra("result", "overtime");
         startActivity(intent);
         finish(); // Optional: Close current activity
     }

@@ -52,6 +52,21 @@
             android:textColor="@color/text"
             android:textSize="@dimen/fontSize" />
 
+
+        <Button
+            android:id="@+id/btnTakePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="@dimen/btnNext"
+            android:width="@dimen/btnLukaPhotoWidth"
+            android:height="@dimen/btnHeight"
+            android:backgroundTint="@color/btn"
+            android:text="@string/photoWithLuca"
+            android:textColor="@color/text"
+            android:textSize="@dimen/fontSize"
+            android:visibility="gone"/>
+
         <Button
             android:id="@+id/btnNext"
             android:layout_width="wrap_content"
@@ -74,6 +89,7 @@
             android:layout_marginTop="@dimen/endingTextMarginTop"
             android:gravity="center_horizontal"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:text="" />
 
     </FrameLayout>

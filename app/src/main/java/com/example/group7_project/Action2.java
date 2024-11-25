@@ -51,11 +51,9 @@ public class Action2 extends AppCompatActivity {
         Button btnNo = findViewById(R.id.btnNo);
 
         btnNo.setOnClickListener(v -> {
-            Intent intent = new Intent(Action2.this, Ending.class);
+            Intent intent = new Intent(Action2.this, EndingBad.class);
             intent.putExtra("color", color);
-            intent.putExtra("endingType", "bad");
             startActivity(intent);
-            dbHelper.close();
             finish();
         });
 
@@ -63,7 +61,6 @@ public class Action2 extends AppCompatActivity {
             Intent intent = new Intent(Action2.this, Scene3.class);
             intent.putExtra("color", color);
             startActivity(intent);
-            dbHelper.close();
             finish();
         });
 

@@ -23,6 +23,5 @@ public class TakePhoto extends AppCompatActivity {
         // รับค่าสีจาก Bad ending
         String color = getIntent().getStringExtra("color");
 
-
     }//end onCreate
 }

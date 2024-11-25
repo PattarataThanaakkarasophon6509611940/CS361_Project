@@ -90,17 +90,24 @@ public class MainActivity extends AppCompatActivity {
                     return new Intent(MainActivity.this, Action1.class);
                 case "Action2":
                     return new Intent(MainActivity.this, Action2.class);
-                //case "Action3":
-                //    return new Intent(MainActivity.this, Action3.class);
                 case "Action4":
                     return new Intent(MainActivity.this, Action4.class);
                 case "Action5":
                     return new Intent(MainActivity.this, Action5.class);
-                //case "Action6":
-                //    return new Intent(MainActivity.this, Action6.class);
                 case "Action7":
                     return new Intent(MainActivity.this, Action7.class);
-                default:
+                case "EndingSad":
+                    return new Intent(MainActivity.this, EndingSad.class);
+                case "EndingBad":
+                    return new Intent(MainActivity.this, EndingBad.class);
+                case "EndingSecret":
+                    return new Intent(MainActivity.this, EndingSecret.class);
+                case "EndingTrue":
+                    return new Intent(MainActivity.this, EndingTrue.class);
+                case "EndingHappy":
+                    return new Intent(MainActivity.this, EndingHappy.class);
+
+                    default:
                     throw new IllegalArgumentException("Unknown scene: " + scene);
             }
         } catch (Exception e) {

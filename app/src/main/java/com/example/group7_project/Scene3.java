@@ -68,8 +68,8 @@ public class Scene3 extends AppCompatActivity {
         });
 
         btnNext.setOnClickListener(v -> {
-            sceneIndex = subNumber[0];
             subNumber[0]++;
+            sceneIndex = subNumber[0];
             if (subNumber[0] > 3) {
                 Intent intent = new Intent(Scene3.this, Action3.class);
                 intent.putExtra("color", color);
@@ -113,7 +113,7 @@ public class Scene3 extends AppCompatActivity {
                 break;
             default:
                 text.setText(R.string.invalidSubscene);
-                imgScene.setImageDrawable(null); // กรณีไม่มี subscene
+                imgScene.setImageDrawable(null);
                 break;
         }
     }
@@ -126,7 +126,6 @@ public class Scene3 extends AppCompatActivity {
         final int[] subNumber = {subscene};
 
         btnSetting.setOnClickListener(v -> {
-            System.out.println("Pass subscene : "+sceneIndex);
             setting.showDialog("Scene3", subNumber[0],null,color);
 
         });
@@ -134,8 +133,8 @@ public class Scene3 extends AppCompatActivity {
         loadPassSubscene(subNumber[0], imgScene, text,color);
 
         btnNext.setOnClickListener(v -> {
-            sceneIndex = subNumber[0];
             subNumber[0]++;
+            sceneIndex = subNumber[0];
             if (subNumber[0] > 7) {
                 Intent intent = new Intent(Scene3.this, Action4.class);
                 intent.putExtra("color", color);
@@ -189,7 +188,7 @@ public class Scene3 extends AppCompatActivity {
                 break;
             default:
                 text.setText(R.string.invalidSubscene);
-                imgScene.setImageDrawable(null); // แสดงภาพว่างกรณีไม่มี subscene
+                imgScene.setImageDrawable(null);
                 break;
         }
     }
@@ -209,11 +208,10 @@ public class Scene3 extends AppCompatActivity {
 
         // การทำงานปุ่มถัดไป
         btnNext.setOnClickListener(v -> {
-            sceneIndex = subNumber[0];
             subNumber[0]++;
-            if (subNumber[0] > 9) {
-                Intent intent = new Intent(Scene3.this, Ending.class);
-                intent.putExtra("endingType", "bad");
+            sceneIndex = subNumber[0];
+            if (subNumber[0] > 10) {
+                Intent intent = new Intent(Scene3.this, EndingBad.class);
                 intent.putExtra("color", color);
                 startActivity(intent);
             } else {
@@ -243,6 +241,16 @@ public class Scene3 extends AppCompatActivity {
                     imgScene.setImageResource(R.drawable.scene_3_4_1_1_white);
                 }
                 text.setText(R.string.scene_3_4_2);
+                break;
+            case 10:
+                if ("black".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_3_4_1_1_black);
+                } else if ("orange".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_3_4_1_1_orange);
+                } else if ("white".equals(color)) {
+                    imgScene.setImageResource(R.drawable.scene_3_4_1_1_white);
+                }
+                text.setText(R.string.scene_3_4_3);
                 break;
             default:
                 text.setText(R.string.invalidSubscene);
