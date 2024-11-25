@@ -11,63 +11,82 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Group7_project"
-        tools:targetApi="31" >
+        tools:targetApi="31">
         <activity
             android:name=".Scene1"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Scene2"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Scene3"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Scene4"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Scene5"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Action1"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Action2"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Action3"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Action4"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Action5"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Action6"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Action7"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".EndingSad"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".EndingHappy"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".EndingSecret"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".EndingBad"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".EndingTrue"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".TakePhoto"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
