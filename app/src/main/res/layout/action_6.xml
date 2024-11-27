@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/action6_background">
+    android:background="@color/backgroundAction6">
+
 
     <TextView
         android:id="@+id/header"
@@ -24,6 +25,15 @@
         android:shadowDy="8"
         android:shadowRadius="4"/>
 
+    <ImageView
+        android:id="@+id/btnInformation"
+        android:layout_width="@dimen/btnSetting"
+        android:layout_height="@dimen/btnSetting"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/btnSettingMargin"
+        android:layout_marginTop="@dimen/btnSettingMargin"
+        app:srcCompat="@drawable/information_icon"
+        android:contentDescription="@string/action3_howToPlay"/>
     <TextView
         android:id="@+id/timerText"
         android:layout_width="wrap_content"

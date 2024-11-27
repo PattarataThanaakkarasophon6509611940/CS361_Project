@@ -183,12 +183,12 @@ public class Action3 extends AppCompatActivity {
         }
 
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.modal_information); // Use your modal layout
+        dialog.setContentView(R.layout.modal_info_action3); // Use your modal layout
         dialog.setCancelable(false); // Prevent dismissing without clicking btnOK
 
         Button btnOK = dialog.findViewById(R.id.btnOK);
         if (btnOK == null) {
-            Log.e("Action3", "btnOK not found in modal_information layout");
+            Log.e("Action3", "btnOK not found in modal_info_action3 layout");
             dialog.dismiss();
             return;
         }

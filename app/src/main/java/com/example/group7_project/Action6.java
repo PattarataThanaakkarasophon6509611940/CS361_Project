@@ -3,11 +3,14 @@ package com.example.group7_project;
 import static com.example.group7_project.Constants.BACK_PRESS_INTERVAL;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,11 +35,13 @@ public class Action6 extends AppCompatActivity {
     int currentPos = -1;
     TextView timerText;
     CountDownTimer countDownTimer;
+    private long remainingTime; // Store remaining time
+    private boolean isPaused = false;
     private int sceneIndex = 1;
     private DatabaseHelper dbHelper;
     String color;
     String book;
-    private long backPressedTime =0;
+    private long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,10 +69,8 @@ public class Action6 extends AppCompatActivity {
             return insets;
         });
 
+        ImageView btnInformation = findViewById(R.id.btnInformation);
         timerText = findViewById(R.id.timerText); // TextView for displaying timer
-
-        // Start the timer
-        startTimer();
 
         ImageAdapter imageAdapter = new ImageAdapter(this);
         GridView gridView = findViewById(R.id.gridView);
@@ -100,9 +103,21 @@ public class Action6 extends AppCompatActivity {
                 }
             }
         });
+
+        long totalTime = 30000;
+        remainingTime = totalTime / 1000; // Initialize remainingTime
+        startTimer(remainingTime);
+        countDownTimer.start();
+
+        // Show modal information popup on start
+        showInformationDialog();
+
+        btnInformation.setOnClickListener(v -> {
+            showInformationDialog(); // Show the information modal again
+        });
     }
 
-    private void startTimer() {
+    private void startTimer(long timeInSeconds) {
         countDownTimer = new CountDownTimer(15000, 1000) { // 30 seconds, tick every 1 second
             @SuppressLint("DefaultLocale")
             @Override
@@ -119,6 +134,42 @@ public class Action6 extends AppCompatActivity {
             }
         };
         countDownTimer.start();
+    }
+
+    private void showInformationDialog() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel(); // Pause the timer
+        }
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.modal_info_action6); // Use your modal layout
+        dialog.setCancelable(false); // Prevent dismissing without clicking btnOK
+
+        Button btnOK = dialog.findViewById(R.id.btnOK);
+        if (btnOK == null) {
+            Log.e("Action3", "btnOK not found in modal_information layout");
+            dialog.dismiss();
+            return;
+        }
+
+        btnOK.setOnClickListener(v -> {
+            dialog.dismiss(); // Close the dialog
+            if (countPair != 3) {
+                resumeTimer();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void resumeTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel(); // Ensure any existing timer is stopped
+        }
+        if (remainingTime > 0) {
+            startTimer(remainingTime); // Recreate the timer
+            countDownTimer.start(); // Start the new timer
+        }
     }
 
     private void navigateToPassLayout() {
@@ -139,7 +190,28 @@ public class Action6 extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (countDownTimer != null) {
+            countDownTimer.cancel(); // Pause the timer
+        }
+        isPaused = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Resume the game timer if it was paused
+        if (isPaused) {
+            resumeTimer();
+            isPaused = false; // Reset the pause flag
+        }
+    }
+
+    @Override
     public void onBackPressed() {
+        super.onBackPressed();
         long currentTime = System.currentTimeMillis();
         if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
             dbHelper.saveLastSubscene("Action6", sceneIndex, book, color); // บันทึกข้อมูลก่อนออก
