@@ -5,51 +5,75 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/backgroundAction3" >
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/headerAction3_height"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/action3_header"
+        android:textSize="@dimen/headerAction3_textSize"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@color/headerAction3"
+        android:shadowColor="@color/shadowAction3"
+        android:shadowDx="8"
+        android:shadowDy="8"
+        android:shadowRadius="4" />
 
-        <ImageView
-            android:id="@+id/scene"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/scene_4_2"
-            tools:ignore="ContentDescription" />
+    <ImageView
+        android:id="@+id/btnInformation"
+        android:layout_width="@dimen/btnSetting"
+        android:layout_height="@dimen/btnSetting"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/btnSettingMargin"
+        android:layout_marginTop="@dimen/btnSettingMargin"
+        app:srcCompat="@drawable/information_icon"
+        android:contentDescription="@string/action3_howToPlay"/>
 
-        <ImageView
-            android:id="@+id/imgSetting"
-            android:layout_width="@dimen/btnSetting"
-            android:layout_height="@dimen/btnSetting"
-            android:layout_marginStart="@dimen/btnSettingMargin"
-            android:layout_marginTop="@dimen/btnSettingMargin"
-            app:srcCompat="@drawable/setting"
-            tools:ignore="ContentDescription" />
-    </FrameLayout>
+    <TextView
+        android:id="@+id/timerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/action3_timeLeft"
+        android:textSize="@dimen/timerAction3_textSize"
+        android:textStyle="bold"
+        android:textColor="@color/text"
+        android:layout_marginBottom="@dimen/marginBottomAction3"
+        android:layout_marginTop="@dimen/marginTopAction3"/>
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:padding="8dp"
+        android:layout_gravity="center"
+        android:foregroundGravity="center_horizontal"
+        app:layout_constraintDimensionRatio="3:3"
+        />
 
     <Button
-        android:id="@+id/btnFail"
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/btnChoice2Action2_marginTop"
-        android:width="@dimen/btnChoice1Action2_Width"
+        android:layout_gravity="center|bottom|end"
+        android:layout_marginEnd="@dimen/btnNext"
+        android:layout_marginBottom="@dimen/btnNext"
+        android:width="@dimen/btnWidth"
+        android:height="@dimen/btnHeight"
         android:backgroundTint="@color/btn"
-        android:text="ไม่ผ่าน"
+        android:text="@string/nextButton"
         android:textColor="@color/text"
-        android:textSize="@dimen/fontSize" />
+        android:textSize="@dimen/fontSize"
+        android:layout_marginTop="@dimen/marginBottomAction3"
+        />
 
-    <Button
-        android:id="@+id/btnPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:width="@dimen/btnChoice1Action2_Width"
-        android:backgroundTint="@color/btn"
-        android:gravity="center_horizontal"
-        android:text="ผ่าน"
-        android:textColor="@color/text"
-        android:textSize="@dimen/fontSize" />
 
 </LinearLayout>
