@@ -43,8 +43,9 @@ public class Setting {
 
         // ตั้งค่าการคลิกปุ่ม Save and Exit
         btnSaveAndExit.setOnClickListener(v -> {
-            saveAndExit(scene,currentIndex,book,color); // บันทึกข้อมูลและออกจากเกม
-            dialog.dismiss(); // ปิด Dialog เมื่อคลิก Save and Exit
+            saveAndExit(scene,currentIndex,book,color);
+            dialog.dismiss();
+            activity.finish();
         });
         dialog.show();
     }

@@ -19,8 +19,10 @@ public class Action4 extends AppCompatActivity {
     private int sceneIndex = 1;
     private Setting setting;
     private DatabaseHelper dbHelper;
-    String color;
+    private String color;
     private long backPressedTime =0;
+    private String book;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,23 +81,27 @@ public class Action4 extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        dbHelper.saveLastSubscene("Action4", sceneIndex, null, color);
-        getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
-                .putString("last_scene", "Action4")
-                .putInt("last_subscene", sceneIndex)
-                .apply();
-        dbHelper.close();
+        saveSceneState();
     }
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
-            dbHelper.saveLastSubscene("Action4", sceneIndex, null, color); // บันทึกข้อมูลก่อนออก
-            finishAffinity();
+            saveSceneState(); // บันทึกข้อมูลก่อนออก
+            finishAffinity(); // ออกจากแอป
         } else {
             // กดครั้งแรก แสดง Toast แจ้งเตือน
             Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
             backPressedTime = currentTime;
         }
+    }
+    private void saveSceneState() {
+        dbHelper.saveLastSubscene("Action4", sceneIndex, book, color);
+        dbHelper.close();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveSceneState();
     }
 }

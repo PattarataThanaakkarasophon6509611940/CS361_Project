@@ -125,5 +125,4 @@ public class EndingTrue extends AppCompatActivity {
             backPressedTime = currentTime;
         }
     }
-
 }

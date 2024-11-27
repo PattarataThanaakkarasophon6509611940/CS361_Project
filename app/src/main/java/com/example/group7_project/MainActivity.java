@@ -17,10 +17,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     private long backPressedTime =0;
+    private Intent intent = new Intent();
+    private int sceneIndex = 1;
+    private DatabaseHelper dbHelper;
+    private String book;
+    private String color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -54,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(book);
                 System.out.println(color);
 
-                //dbHelper.resetDatabase();
-
-                Intent intent = getSceneIntent(scene); // ใช้ฟังก์ชันเพื่อหา Intent ที่เหมาะสม
+                intent = getSceneIntent(scene); // ใช้ฟังก์ชันเพื่อหา Intent ที่เหมาะสม
                 if (intent != null) {
                     intent.putExtra("subscene", subscene);
                     intent.putExtra("book", book);
@@ -92,10 +94,14 @@ public class MainActivity extends AppCompatActivity {
                     return new Intent(MainActivity.this, Action1.class);
                 case "Action2":
                     return new Intent(MainActivity.this, Action2.class);
+                case "Action3":
+                    return new Intent(MainActivity.this, Action3.class);
                 case "Action4":
                     return new Intent(MainActivity.this, Action4.class);
                 case "Action5":
                     return new Intent(MainActivity.this, Action5.class);
+                case "Action6" :
+                    return new Intent(MainActivity.this, Action6.class);
                 case "Action7":
                     return new Intent(MainActivity.this, Action7.class);
                 case "EndingSad":
@@ -114,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     throw new IllegalArgumentException("Unknown scene: " + scene);
             }
         } catch (Exception e) {
-            Toast.makeText(this, "Error loading saved progress.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Error loading saved progress.", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
         return null;
@@ -123,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
-            finishAffinity();
+            finishAffinity(); // ออกจากแอป
         } else {
             Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
             backPressedTime = currentTime;
