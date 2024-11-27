@@ -42,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("color", color);
 
         db.insert("progress", null, values);
+
     }
 
     public Cursor getLastSubscene() {

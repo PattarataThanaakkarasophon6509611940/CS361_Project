@@ -1,5 +1,7 @@
 package com.example.group7_project;
 
+import static com.example.group7_project.Constants.BACK_PRESS_INTERVAL;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,16 +32,18 @@ public class Action6 extends AppCompatActivity {
     int currentPos = -1;
     TextView timerText;
     CountDownTimer countDownTimer;
-
-    // Declare color and book at the class level
+    private int sceneIndex = 1;
+    private DatabaseHelper dbHelper;
     String color;
     String book;
+    private long backPressedTime =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.action_6);
+        dbHelper = new DatabaseHelper(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -132,5 +136,18 @@ public class Action6 extends AppCompatActivity {
         intent.putExtra("result", "overtime");
         startActivity(intent);
         finish(); // Optional: Close current activity
+    }
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
+            dbHelper.saveLastSubscene("Action6", sceneIndex, book, color); // บันทึกข้อมูลก่อนออก
+            finishAffinity();
+        } else {
+            // กดครั้งแรก แสดง Toast แจ้งเตือน
+            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
+            backPressedTime = currentTime;
+        }
     }
 }

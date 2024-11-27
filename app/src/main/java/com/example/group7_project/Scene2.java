@@ -1,10 +1,13 @@
 package com.example.group7_project;
 
+import static com.example.group7_project.Constants.BACK_PRESS_INTERVAL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +16,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Scene2 extends AppCompatActivity {
-
     private int sceneIndex = 1;
     private Setting setting;
     private DatabaseHelper dbHelper;
     String color;
+    private long backPressedTime =0;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +99,22 @@ public class Scene2 extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         dbHelper.saveLastSubscene("Scene2", sceneIndex,null,color);
+        getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
+                .putString("last_scene", "Scene2")
+                .putInt("last_subscene", sceneIndex)
+                .apply();
         dbHelper.close();
+    }
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
+            dbHelper.saveLastSubscene("Scene2", sceneIndex, null, null); // บันทึกข้อมูลก่อนออก
+            finishAffinity();
+        } else {
+            // กดครั้งแรก แสดง Toast แจ้งเตือน
+            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
+            backPressedTime = currentTime;
+        }
     }
 }

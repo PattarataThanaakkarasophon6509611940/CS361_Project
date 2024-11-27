@@ -1,10 +1,11 @@
 package com.example.group7_project;
 
-import android.annotation.SuppressLint;
+import static com.example.group7_project.Constants.BACK_PRESS_INTERVAL;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    private long backPressedTime =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +108,8 @@ public class MainActivity extends AppCompatActivity {
                     return new Intent(MainActivity.this, EndingTrue.class);
                 case "EndingHappy":
                     return new Intent(MainActivity.this, EndingHappy.class);
-
+                case "TakePhoto":
+                    return new Intent(MainActivity.this, TakePhoto.class);
                     default:
                     throw new IllegalArgumentException("Unknown scene: " + scene);
             }
@@ -116,5 +119,14 @@ public class MainActivity extends AppCompatActivity {
         }
         return null;
     }
-
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
+            finishAffinity();
+        } else {
+            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
+            backPressedTime = currentTime;
+        }
+    }
 }

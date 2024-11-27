@@ -1,11 +1,14 @@
 package com.example.group7_project;
 
+import static com.example.group7_project.Constants.BACK_PRESS_INTERVAL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +21,7 @@ public class EndingBad extends AppCompatActivity {
     private Setting setting;
     private DatabaseHelper dbHelper;
     String color;
+    private long backPressedTime =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +89,22 @@ public class EndingBad extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         dbHelper.saveLastSubscene("EndingBad", sceneIndex,null,color);
+        getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
+                .putString("last_scene", "EndingBad")
+                .putInt("last_subscene", sceneIndex)
+                .apply();
         dbHelper.close();
+    }
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
+            dbHelper.saveLastSubscene("EndingBad", sceneIndex, null, color); // บันทึกข้อมูลก่อนออก
+            finishAffinity();
+        } else {
+            // กดครั้งแรก แสดง Toast แจ้งเตือน
+            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
+            backPressedTime = currentTime;
+        }
     }
 }
