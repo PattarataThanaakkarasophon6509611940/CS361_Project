@@ -1,5 +1,7 @@
 package com.example.group7_project;
 
+import static com.example.group7_project.Constants.BACK_PRESS_INTERVAL;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ClipData;
@@ -49,6 +51,8 @@ public class Action3 extends AppCompatActivity {
     private boolean isPaused = false;
     private int sceneIndex = 1;
     private String color;
+    private DatabaseHelper dbHelper;
+    private long backPressedTime = 0;
 
 
     @Override
@@ -467,6 +471,12 @@ public class Action3 extends AppCompatActivity {
             resumeTimer();
             isPaused = false; // Reset the pause flag
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Prevent navigation back for this specific layout
+        Toast.makeText(this, "แอ่แฮ่! ย้อนกลับไม่ได้นะ!", Toast.LENGTH_SHORT).show();
     }
 
 }

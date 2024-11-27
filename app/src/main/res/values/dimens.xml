@@ -66,12 +66,15 @@
     <dimen name="btnPhoto_w">170dp</dimen>
     <dimen name="btnPhoto_h">50dp</dimen>
 
-    <dimen name="btnPhotoMarginTop">50dp</dimen>
-    <dimen name="btnSaveMarginTop">110dp</dimen>
-    <dimen name="btnBackMarginTop">170dp</dimen>
+    <dimen name="btnPhotoMarginTop">15dp</dimen>
+    <dimen name="btnSaveMarginTop">70dp</dimen>
+    <dimen name="btnBackMarginTop">120dp</dimen>
     <dimen name="heightImage">300dp</dimen>
     <dimen name="MarginTopFrame">50dp</dimen>
-    <dimen name="Top">50dp</dimen>
+    <dimen name="Top">100dp</dimen>
+
+    <dimen name="banner_width">300dp</dimen>
+    <dimen name="banner_height">80dp</dimen>
 
 
 </resources>

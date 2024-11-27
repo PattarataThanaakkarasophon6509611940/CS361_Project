@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -56,6 +57,12 @@ public class TakePhoto extends AppCompatActivity {
                 checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 102);
         }
+
+        // Set status bar color to black
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.black));
+
+        // Set navigation bar color to black
+        getWindow().setNavigationBarColor(ContextCompat.getColor(this, android.R.color.black));
 
         color = getIntent().getStringExtra("color");
 

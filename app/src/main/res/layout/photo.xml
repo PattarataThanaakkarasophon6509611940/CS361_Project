@@ -19,7 +19,18 @@
             android:scaleType="centerCrop"
             tools:ignore="ContentDescription"
             app:srcCompat="@drawable/bg_photo"/>
+
+        <ImageView
+            android:id="@+id/logo_banner"
+            android:layout_width="@dimen/banner_width"
+            android:layout_height="@dimen/banner_height"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/logo_banner"
+            tools:ignore="ContentDescription" />
+
     </FrameLayout>
+
 
     <TextView
         android:id="@+id/textView"
@@ -67,7 +78,7 @@
             android:layout_width="@dimen/btnPhoto_w"
             android:layout_height="@dimen/btnPhoto_h"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/btnMarginTop"
+            android:layout_marginTop="@dimen/btnPhotoMarginTop"
             android:width="@dimen/btnWidth"
             android:height="@dimen/btnHeight"
             android:backgroundTint="@color/btn"
@@ -97,6 +108,7 @@
             android:backgroundTint="@color/btn"
             android:text="@string/back_to_home"
             android:textColor="@color/text" />
+
     </FrameLayout>
 
 </LinearLayout>
