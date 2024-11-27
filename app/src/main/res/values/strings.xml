@@ -214,5 +214,8 @@
     <string name="save">บันทึก</string>
     <string name="title">ชื่อเรื่อง</string>
     <string name="back_to_home">กลับสู่หน้าหลัก</string>
+    <string name="saveImageCompleted">บันทึกภาพสำเร็จ</string>
+
+
 
 </resources>

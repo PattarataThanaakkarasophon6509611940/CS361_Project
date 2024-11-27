@@ -8,6 +8,8 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,7 +29,7 @@ import androidx.core.view.WindowInsetsCompat;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class TakePhoto extends Activity {
+public class TakePhoto extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView imageView;
     private Bitmap capturedImage;
@@ -55,12 +57,13 @@ public class TakePhoto extends Activity {
             requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 102);
         }
 
-        // รับค่าสีจาก Bad ending
         color = getIntent().getStringExtra("color");
 
         imageView = findViewById(R.id.imageView);
         Button captureButton = findViewById(R.id.select_img);
-        Button saveButton = findViewById(R.id.button1);
+        Button saveButton = findViewById(R.id.saveImage);
+        Button backToMain = findViewById(R.id.backToMain);
+        ImageView frameView = findViewById(R.id.frameView);
 
         // ถ่ายภาพ
         captureButton.setOnClickListener(v -> dispatchTakePictureIntent());
@@ -72,16 +75,54 @@ public class TakePhoto extends Activity {
         //บันทึกภาพ
         saveButton.setOnClickListener(v -> {
             if (capturedImage != null) {
-                saveImageToDatabase("ไม่มีชื่อเรื่อง", capturedImage); // ใช้ค่าเริ่มต้นสำหรับชื่อเรื่อง
+                Bitmap combinedImage = combineImages(capturedImage, frameView);
+                if (combinedImage != null) {
+                    saveImageToGallery(combinedImage);
+                } else {
+                    Toast.makeText(this, "ไม่สามารถรวมภาพได้", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(TakePhoto.this, "กรุณาถ่ายภาพก่อนบันทึก", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "กรุณาถ่ายภาพก่อนบันทึก", Toast.LENGTH_SHORT).show();
             }
         });
+        backToMain.setOnClickListener(v -> {
+            Intent intent = new Intent(TakePhoto.this, MainActivity.class);
+            intent.putExtra("color", color);
+            startActivity(intent);
+            finish();
+        });
+
     }//end onCreate
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+    // รวมภาพถ่ายกับกรอบรูป
+    private Bitmap combineImages(Bitmap capturedImage, ImageView frameView) {
+        try {
+            // รับ Bitmap ของกรอบรูป
+            frameView.setDrawingCacheEnabled(true);
+            Bitmap frameBitmap = Bitmap.createBitmap(frameView.getDrawingCache());
+            frameView.setDrawingCacheEnabled(false);
+
+            // สร้าง Bitmap ใหม่ที่รวมภาพ
+            Bitmap result = Bitmap.createBitmap(frameBitmap.getWidth(), frameBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(result);
+
+            // วาดภาพถ่ายบน Bitmap ใหม่
+            Rect src = new Rect(0, 0, capturedImage.getWidth(), capturedImage.getHeight());
+            Rect dest = new Rect(0, 0, frameBitmap.getWidth(), frameBitmap.getHeight());
+            canvas.drawBitmap(capturedImage, src, dest, null);
+
+            // วาดกรอบรูปทับบน Bitmap ใหม่
+            canvas.drawBitmap(frameBitmap, 0, 0, null);
+
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -92,7 +133,8 @@ public class TakePhoto extends Activity {
             if (data != null && data.getExtras() != null) {
                 capturedImage = (Bitmap) data.getExtras().get("data");
                 if (capturedImage != null) {
-                    imageView.setImageBitmap(capturedImage);
+                    Bitmap squareImage = cropToSquare(capturedImage);
+                    scaleAndDisplayImage(capturedImage);
                     Log.d("IMAGE_CAPTURE", "ถ่ายภาพสำเร็จและแสดงผลใน ImageView");
                 } else {
                     Log.e("IMAGE_CAPTURE", "ภาพที่ได้เป็น null");
@@ -106,50 +148,55 @@ public class TakePhoto extends Activity {
             Log.e("IMAGE_CAPTURE", "ไม่สามารถถ่ายภาพได้ หรือถูกยกเลิก");
         }
     }
-    // บันทึกภาพลงฐานข้อมูล SQLite
-    private void saveImageToDatabase(String title, Bitmap image) {
+    private Bitmap cropToSquare(Bitmap image) {
+        // หาขนาดที่เล็กที่สุดระหว่างความกว้างและความสูง
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int size = Math.min(width, height); // ขนาดสี่เหลี่ยมจัตุรัสที่เราจะตัด
+
+        // คำนวณตำแหน่งเริ่มต้น (left, top) สำหรับการตัด
+        int x = (width - size) / 1;  // ตำแหน่งเริ่มต้นที่คำนวณจากขอบซ้าย
+        int y = (height - size) / 1; // ตำแหน่งเริ่มต้นที่คำนวณจากขอบบน
+
+        // ตัดภาพให้เป็นสี่เหลี่ยมจัตุรัส
+        Bitmap squareBitmap = Bitmap.createBitmap(image, x, y, size, size);
+
+        return squareBitmap;
+    }
+
+    // บันทึกภาพลง Gallery
+    private void saveImageToGallery(Bitmap image) {
         ContentResolver resolver = getContentResolver();
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "IMG_" + System.currentTimeMillis() + ".jpg");
         contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg");
-        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES); // ต้องการสำหรับ Android Q+
+        contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES);
 
         Uri imageUri = null;
         OutputStream outputStream = null;
 
         try {
-            // เพิ่ม Log ก่อนสร้าง URI
-            Log.d("SaveImage", "เริ่มการบันทึกภาพ...");
-
             // สร้าง URI สำหรับบันทึก
             imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
 
-            // เพิ่ม Log หลังสร้าง URI
-            Log.d("SaveImage", "Image URI: " + imageUri);
+            // ตรวจสอบว่า imageUri ไม่เป็น null
+            if (imageUri != null) {
+                // เปิด OutputStream สำหรับเขียนข้อมูลไปที่ URI
+                outputStream = resolver.openOutputStream(imageUri);
 
-            if (imageUri == null) {
-                Log.e("SaveImage", "ไม่สามารถสร้าง URI ได้");
-                Toast.makeText(this, "ไม่สามารถบันทึกภาพได้", Toast.LENGTH_SHORT).show();
-                return;
+                // ตรวจสอบว่า OutputStream ไม่เป็น null
+                if (outputStream != null) {
+                    // บันทึกภาพลงใน OutputStream
+                    image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                    Toast.makeText(this, R.string.saveImageCompleted, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "ไม่สามารถเปิด OutputStream ได้", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "ไม่สามารถสร้าง URI ได้", Toast.LENGTH_SHORT).show();
             }
-
-            // เปิด OutputStream สำหรับเขียนข้อมูล
-            outputStream = resolver.openOutputStream(imageUri);
-            if (outputStream == null) {
-                Log.e("SaveImage", "ไม่สามารถเปิด OutputStream ได้");
-                Toast.makeText(this, "เกิดข้อผิดพลาดในการบันทึกภาพ", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // บันทึกภาพด้วยความละเอียดสูง
-            image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-
-            // Log หลังบันทึกสำเร็จ
-            Log.d("SaveImage", "บันทึกภาพสำเร็จใน Gallery");
-            Toast.makeText(this, "บันทึกภาพลง Gallery สำเร็จ", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("SaveImage", "Error: " + e.getMessage());
             Toast.makeText(this, "เกิดข้อผิดพลาด: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         } finally {
             // ปิด OutputStream เพื่อป้องกันการรั่วไหลของทรัพยากร
@@ -183,5 +230,18 @@ public class TakePhoto extends Activity {
             Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
             backPressedTime = currentTime;
         }
+    }
+    // ฟังก์ชันสำหรับปรับขนาดภาพ
+    private void scaleAndDisplayImage(Bitmap image) {
+        // ดึงขนาดของ ImageView ที่ใช้เป็นกรอบ
+        ImageView imageView = findViewById(R.id.imageView);
+        int width = imageView.getWidth();
+        int height = imageView.getHeight();
+
+        // ปรับขนาดภาพให้เข้ากับกรอบ
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(image, width, height, true);
+
+        // แสดงภาพที่ปรับขนาดแล้วใน ImageView
+        imageView.setImageBitmap(scaledBitmap);
     }
 }

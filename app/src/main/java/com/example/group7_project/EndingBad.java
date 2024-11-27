@@ -43,6 +43,7 @@ public class EndingBad extends AppCompatActivity {
         Button btnNext = findViewById(R.id.btnNext);
         TextView ending = findViewById(R.id.ending);
         ImageView btnSetting = findViewById(R.id.imgSetting);
+        Button btnTakePhoto = findViewById(R.id.btnTakePhoto);
 
         sceneIndex = subscene;
         loadSubscene(sceneIndex, imgScene, text, ending);
@@ -52,14 +53,13 @@ public class EndingBad extends AppCompatActivity {
         });
         btnNext.setOnClickListener(v -> {
             sceneIndex++;
-            if (sceneIndex>3) {
-                Intent intent = new Intent(EndingBad.this, TakePhoto.class);
-                intent.putExtra("color", color);
-                startActivity(intent);
-                finish();
-            } else {
-                loadSubscene(sceneIndex, imgScene, text,ending);
-            }
+            loadSubscene(sceneIndex, imgScene, text,ending);
+        });
+        btnTakePhoto.setOnClickListener(v -> {
+            Intent intent = new Intent(EndingBad.this, TakePhoto.class);
+            intent.putExtra("color", color);
+            startActivity(intent);
+            finish();
         });
     }
     private void loadSubscene(int sceneIndex,ImageView imgScene,TextView text, TextView ending) {

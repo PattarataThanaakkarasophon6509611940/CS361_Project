@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginTop="50dp"
-    android:id="@+id/main"
-    android:padding="16dp">
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/Top"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            tools:ignore="ContentDescription"
+            app:srcCompat="@drawable/bg_photo"/>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/textView"
@@ -13,45 +27,76 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="16dp"
-        android:contentDescription="@string/showphoto"
-        android:scaleType="centerCrop" />
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="ContentDescription" />
 
-    <Button
-        android:id="@+id/select_img"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="@string/photo"
-        android:backgroundTint="@color/btn"
-        android:textColor="@color/text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        <ImageView
+            android:id="@+id/frameView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            tools:ignore="ContentDescription"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/frame_luca" />
+    </FrameLayout>
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/btn"
-        android:textColor="@color/text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:text="@string/save" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@color/btn"
-        android:textColor="@color/text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:text="@string/back_to_home" />
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="ContentDescription"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/bg_photo" />
+
+        <Button
+            android:id="@+id/select_img"
+            android:layout_width="@dimen/btnPhoto_w"
+            android:layout_height="@dimen/btnPhoto_h"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/btnMarginTop"
+            android:width="@dimen/btnWidth"
+            android:height="@dimen/btnHeight"
+            android:backgroundTint="@color/btn"
+            android:text="@string/photo"
+            android:textColor="@color/text" />
+
+        <Button
+            android:id="@+id/saveImage"
+            android:layout_width="@dimen/btnPhoto_w"
+            android:layout_height="@dimen/btnPhoto_h"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/btnSaveMarginTop"
+            android:width="@dimen/btnWidth"
+            android:height="@dimen/btnHeight"
+            android:backgroundTint="@color/btn"
+            android:text="@string/save"
+            android:textColor="@color/text" />
+
+        <Button
+            android:id="@+id/backToMain"
+            android:layout_width="@dimen/btnPhoto_w"
+            android:layout_height="@dimen/btnPhoto_h"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/btnBackMarginTop"
+            android:width="@dimen/btnWidth"
+            android:height="@dimen/btnHeight"
+            android:backgroundTint="@color/btn"
+            android:text="@string/back_to_home"
+            android:textColor="@color/text" />
+    </FrameLayout>
+
 </LinearLayout>

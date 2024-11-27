@@ -43,6 +43,7 @@ public class EndingSad extends AppCompatActivity {
         Button btnNext = findViewById(R.id.btnNext);
         TextView ending = findViewById(R.id.ending);
         ImageView btnSetting = findViewById(R.id.imgSetting);
+        Button btnTakePhoto = findViewById(R.id.btnTakePhoto);
 
         sceneIndex = subscene;
         loadSubscene(sceneIndex, imgScene, text, color,ending);
@@ -53,15 +54,14 @@ public class EndingSad extends AppCompatActivity {
 
         btnNext.setOnClickListener(v -> {
             sceneIndex++;
+            loadSubscene(sceneIndex, imgScene, text, color,ending);
 
-            if (sceneIndex>9) {
-                Intent intent = new Intent(EndingSad.this, TakePhoto.class);
-                intent.putExtra("color", color);
-                startActivity(intent);
-                finish();
-            } else {
-                loadSubscene(sceneIndex, imgScene, text, color,ending);
-            }
+        });
+        btnTakePhoto.setOnClickListener(v -> {
+            Intent intent = new Intent(EndingSad.this, TakePhoto.class);
+            intent.putExtra("color", color);
+            startActivity(intent);
+            finish();
         });
     }
     private void loadSubscene(int sceneIndex,ImageView imgScene,TextView text, String color,TextView ending) {
@@ -142,7 +142,8 @@ public class EndingSad extends AppCompatActivity {
                     break;
                 case 9:
                     Button btnNext = findViewById(R.id.btnNext);
-                    Button btnTakePhoto= findViewById(R.id.btnTakePhoto);                    imgScene.setImageResource(R.drawable.scene_s_6);
+                    Button btnTakePhoto= findViewById(R.id.btnTakePhoto);
+                    imgScene.setImageResource(R.drawable.scene_s_6);
                     text.setText(R.string.scene_s_6);
                     btnNext.setVisibility(View.GONE);
                     btnTakePhoto.setVisibility(View.VISIBLE);

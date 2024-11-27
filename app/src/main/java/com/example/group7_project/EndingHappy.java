@@ -43,6 +43,7 @@ public class EndingHappy extends AppCompatActivity {
         Button btnNext = findViewById(R.id.btnNext);
         TextView ending = findViewById(R.id.ending);
         ImageView btnSetting = findViewById(R.id.imgSetting);
+        Button btnTakePhoto = findViewById(R.id.btnTakePhoto);
 
         sceneIndex = subscene;
         loadSubscene(sceneIndex, imgScene, text, color,ending);
@@ -50,19 +51,17 @@ public class EndingHappy extends AppCompatActivity {
         btnSetting.setOnClickListener(v -> {
             setting.showDialog("EndingHappy",sceneIndex,null,color);
         });
-            btnNext.setOnClickListener(v -> {
-                sceneIndex++;
-                if (sceneIndex>7) {
-                    Intent intent = new Intent(EndingHappy.this, TakePhoto.class);
-                    intent.putExtra("color", color);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    loadSubscene(sceneIndex, imgScene, text, color,ending);
-                }
-            });
+        btnNext.setOnClickListener(v -> {
+            sceneIndex++;
+            loadSubscene(sceneIndex, imgScene, text, color,ending);
+        });
+        btnTakePhoto.setOnClickListener(v -> {
+            Intent intent = new Intent(EndingHappy.this, TakePhoto.class);
+            intent.putExtra("color", color);
+            startActivity(intent);
+            finish();
+        });
     }
-
     private void loadSubscene(int sceneIndex,ImageView imgScene,TextView text, String color,TextView ending) {
         switch (sceneIndex) {
         case 1:
