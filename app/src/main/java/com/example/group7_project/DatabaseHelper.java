@@ -58,6 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int subscene = cursor.getInt(cursor.getColumnIndexOrThrow("subscene"));
                 String book = cursor.getString(cursor.getColumnIndexOrThrow("book"));
                 String color = cursor.getString(cursor.getColumnIndexOrThrow("color"));
+                
 
                 // พิมพ์ข้อมูล
                 System.out.println("ID: " + id);

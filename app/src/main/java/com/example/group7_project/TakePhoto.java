@@ -39,6 +39,7 @@ public class TakePhoto extends AppCompatActivity {
     private String color;
     private long backPressedTime =0;
     private int sceneIndex = 1;
+    private String book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,28 +217,6 @@ public class TakePhoto extends AppCompatActivity {
             }
         }
     }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        dbHelper.saveLastSubscene("TakePhoto", sceneIndex,null,color);
-        getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
-                .putString("last_scene", "Action1")
-                .putInt("last_subscene", sceneIndex)
-                .apply();
-        dbHelper.close();
-    }
-    @Override
-    public void onBackPressed() {
-        long currentTime = System.currentTimeMillis();
-        if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
-            dbHelper.saveLastSubscene("TakePhoto", sceneIndex, null, color);
-            finishAffinity();
-        } else {
-            // กดครั้งแรก แสดง Toast แจ้งเตือน
-            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
-            backPressedTime = currentTime;
-        }
-    }
     // ฟังก์ชันสำหรับปรับขนาดภาพ
     private void scaleAndDisplayImage(Bitmap image) {
         // ดึงขนาดของ ImageView ที่ใช้เป็นกรอบ
@@ -250,5 +229,31 @@ public class TakePhoto extends AppCompatActivity {
 
         // แสดงภาพที่ปรับขนาดแล้วใน ImageView
         imageView.setImageBitmap(scaledBitmap);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveSceneState();
+    }
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
+            saveSceneState();
+            finishAffinity();
+        } else {
+            // กดครั้งแรก แสดง Toast แจ้งเตือน
+            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
+            backPressedTime = currentTime;
+        }
+    }
+    private void saveSceneState() {
+        dbHelper.saveLastSubscene("TakePhoto", sceneIndex, book, color);
+        dbHelper.close();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveSceneState();
     }
 }

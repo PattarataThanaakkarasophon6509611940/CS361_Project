@@ -23,6 +23,7 @@ public class Scene3 extends AppCompatActivity {
     String color;
     String status;
     private long backPressedTime =0;
+    String book;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +75,7 @@ public class Scene3 extends AppCompatActivity {
         btnNext.setOnClickListener(v -> {
             subNumber[0]++;
             sceneIndex = subNumber[0];
+            System.out.println("Normal "+subNumber[0]);
             if (subNumber[0] > 3) {
                 Intent intent = new Intent(Scene3.this, Action3.class);
                 intent.putExtra("color", color);
@@ -139,6 +141,7 @@ public class Scene3 extends AppCompatActivity {
         btnNext.setOnClickListener(v -> {
             subNumber[0]++;
             sceneIndex = subNumber[0];
+            System.out.println("Pass "+subNumber[0]);
             if (subNumber[0] > 7) {
                 Intent intent = new Intent(Scene3.this, Action4.class);
                 intent.putExtra("color", color);
@@ -214,6 +217,7 @@ public class Scene3 extends AppCompatActivity {
         btnNext.setOnClickListener(v -> {
             subNumber[0]++;
             sceneIndex = subNumber[0];
+            System.out.println("Fail "+subNumber[0]);
             if (subNumber[0] > 10) {
                 Intent intent = new Intent(Scene3.this, EndingBad.class);
                 intent.putExtra("color", color);
@@ -265,23 +269,27 @@ public class Scene3 extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        dbHelper.saveLastSubscene("Scene3", sceneIndex, null, color);
-        getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
-                .putString("last_scene", "Scene3")
-                .putInt("last_subscene", sceneIndex)
-                .apply();
-        dbHelper.close();
+        saveSceneState();
     }
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
-            dbHelper.saveLastSubscene("Scene3", sceneIndex, null, null); // บันทึกข้อมูลก่อนออก
+            saveSceneState();
             finishAffinity();
         } else {
             // กดครั้งแรก แสดง Toast แจ้งเตือน
             Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
             backPressedTime = currentTime;
         }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveSceneState();
+    }
+    private void saveSceneState() {
+        dbHelper.saveLastSubscene("Scene3", sceneIndex, book, color);
+        dbHelper.close();
     }
 }

@@ -20,6 +20,8 @@ public class Action1 extends AppCompatActivity {
     private Setting setting;
     private DatabaseHelper dbHelper;
     private long backPressedTime =0;
+    private String color;
+    private String book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class Action1 extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.action_1);
         dbHelper = new DatabaseHelper(this);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -57,24 +60,28 @@ public class Action1 extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        dbHelper.saveLastSubscene("Action1", sceneIndex,null,null);
-        getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
-                .putString("last_scene", "Action1")
-                .putInt("last_subscene", sceneIndex)
-                .apply();
-        dbHelper.close();
+        saveSceneState();
     }
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
-            dbHelper.saveLastSubscene("Action1", sceneIndex, null, null); // บันทึกข้อมูลก่อนออก
-            finishAffinity();
+            saveSceneState(); // บันทึกข้อมูลก่อนออก
+            finish(); // ปิด Action1
         } else {
             // กดครั้งแรก แสดง Toast แจ้งเตือน
             Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
             backPressedTime = currentTime;
         }
+    }
+    private void saveSceneState() {
+        dbHelper.saveLastSubscene("Action1", sceneIndex, null, null);
+        dbHelper.close();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveSceneState();
     }
 }
 

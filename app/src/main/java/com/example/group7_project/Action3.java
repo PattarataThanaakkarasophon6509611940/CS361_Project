@@ -53,12 +53,13 @@ public class Action3 extends AppCompatActivity {
     private String color;
     private DatabaseHelper dbHelper;
     private long backPressedTime = 0;
-
+    private String book;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_3);
+        dbHelper = new DatabaseHelper(this);
 
         // Set status bar color to black
         getWindow().setStatusBarColor(Color.BLACK);
@@ -472,11 +473,22 @@ public class Action3 extends AppCompatActivity {
             isPaused = false; // Reset the pause flag
         }
     }
+//    @Override
+//    public void onBackPressed() {
+//        long currentTime = System.currentTimeMillis();
+//        if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
+//            dbHelper.saveLastSubscene("Action3", sceneIndex, book, color); // บันทึกข้อมูลก่อนออก
+//            finishAffinity();
+//        } else {
+//            // กดครั้งแรก แสดง Toast แจ้งเตือน
+//            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
+//            backPressedTime = currentTime;
+//        }
+//    }
 
     @Override
     public void onBackPressed() {
         // Prevent navigation back for this specific layout
         Toast.makeText(this, "แอ่แฮ่! ย้อนกลับไม่ได้นะ!", Toast.LENGTH_SHORT).show();
     }
-
 }

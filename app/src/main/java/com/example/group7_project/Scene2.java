@@ -19,8 +19,9 @@ public class Scene2 extends AppCompatActivity {
     private int sceneIndex = 1;
     private Setting setting;
     private DatabaseHelper dbHelper;
-    String color;
+    private String color;
     private long backPressedTime =0;
+    private String book;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,6 @@ public class Scene2 extends AppCompatActivity {
                 intent.putExtra("color", color);
                 startActivity(intent);
                 finish();
-                dbHelper.close();
             } else {
                 loadSubscene(sceneIndex, imgScene, text, color);
             }
@@ -98,23 +98,27 @@ public class Scene2 extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        dbHelper.saveLastSubscene("Scene2", sceneIndex,null,color);
-        getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
-                .putString("last_scene", "Scene2")
-                .putInt("last_subscene", sceneIndex)
-                .apply();
-        dbHelper.close();
+        saveSceneState();
     }
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
-            dbHelper.saveLastSubscene("Scene2", sceneIndex, null, null); // บันทึกข้อมูลก่อนออก
+            saveSceneState();
             finishAffinity();
         } else {
             // กดครั้งแรก แสดง Toast แจ้งเตือน
             Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
             backPressedTime = currentTime;
         }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveSceneState();
+    }
+    private void saveSceneState() {
+        dbHelper.saveLastSubscene("Scene2", sceneIndex, book, color);
+        dbHelper.close();
     }
 }

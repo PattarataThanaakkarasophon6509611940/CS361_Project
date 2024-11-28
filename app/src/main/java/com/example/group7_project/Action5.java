@@ -19,7 +19,8 @@ public class Action5 extends AppCompatActivity {
     private int sceneIndex = 1;
     private Setting setting;
     private DatabaseHelper dbHelper;
-    String color;
+    private String color;
+    private String book;
     private long backPressedTime =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class Action5 extends AppCompatActivity {
         sceneIndex = subscene;
 
         btnSetting.setOnClickListener(v -> {
-            setting.showDialog("Action5",sceneIndex,null,color);
+            setting.showDialog("Action5",sceneIndex,book,color);
         });
 
         imgScene.setImageResource(R.drawable.scene_4_3);
@@ -73,23 +74,27 @@ public class Action5 extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        dbHelper.saveLastSubscene("Action5", sceneIndex,null,color);
-        getSharedPreferences("app_prefs", MODE_PRIVATE).edit()
-                .putString("last_scene", "Action5")
-                .putInt("last_subscene", sceneIndex)
-                .apply();
-        dbHelper.close();
+        saveSceneState();
     }
     @Override
     public void onBackPressed() {
         long currentTime = System.currentTimeMillis();
         if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
-            dbHelper.saveLastSubscene("Action5", sceneIndex, null, color); // บันทึกข้อมูลก่อนออก
-            finishAffinity();
+            saveSceneState(); // บันทึกข้อมูลก่อนออก
+            finishAffinity(); // ออกจากแอป
         } else {
             // กดครั้งแรก แสดง Toast แจ้งเตือน
             Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
             backPressedTime = currentTime;
         }
+    }
+    private void saveSceneState() {
+        dbHelper.saveLastSubscene("Action5", sceneIndex, book, color);
+        dbHelper.close();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveSceneState();
     }
 }
