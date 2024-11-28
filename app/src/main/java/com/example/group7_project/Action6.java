@@ -197,12 +197,12 @@ public class Action6 extends AppCompatActivity {
             countDownTimer.cancel(); // Pause the timer
         }
         isPaused = true;
+        saveSceneState();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         // Resume the game timer if it was paused
         if (isPaused) {
             resumeTimer();
@@ -213,16 +213,25 @@ public class Action6 extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // Prevent navigation back for this specific layout
-        Toast.makeText(this, "แอ่แฮ่! ย้อนกลับไม่ได้นะ!", Toast.LENGTH_SHORT).show();
-//        long currentTime = System.currentTimeMillis();
-//        if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
-//            dbHelper.saveLastSubscene("Action6", sceneIndex, book, color); // บันทึกข้อมูลก่อนออก
-//            finishAffinity();
-//        } else {
-//            // กดครั้งแรก แสดง Toast แจ้งเตือน
-//            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
-//            backPressedTime = currentTime;
-//        }
+        //Toast.makeText(this, "แอ่แฮ่! ย้อนกลับไม่ได้นะ!", Toast.LENGTH_SHORT).show();
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - backPressedTime < BACK_PRESS_INTERVAL) {
+            dbHelper.saveLastSubscene("Action6", sceneIndex, book, color); // บันทึกข้อมูลก่อนออก
+            finishAffinity();
+        } else {
+            // กดครั้งแรก แสดง Toast แจ้งเตือน
+            Toast.makeText(this, R.string.back, Toast.LENGTH_SHORT).show();
+            backPressedTime = currentTime;
+        }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveSceneState();
+    }
+    private void saveSceneState() {
+        dbHelper.saveLastSubscene("Action6", sceneIndex, book, color);
+        dbHelper.close();
     }
 
 }
