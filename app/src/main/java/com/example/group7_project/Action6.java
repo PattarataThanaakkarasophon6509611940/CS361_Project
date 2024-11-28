@@ -104,7 +104,7 @@ public class Action6 extends AppCompatActivity {
             }
         });
 
-        long totalTime = 30000;
+        long totalTime = 15000;
         remainingTime = totalTime / 1000; // Initialize remainingTime
         startTimer(remainingTime);
         countDownTimer.start();
@@ -118,11 +118,12 @@ public class Action6 extends AppCompatActivity {
     }
 
     private void startTimer(long timeInSeconds) {
-        countDownTimer = new CountDownTimer(15000, 1000) { // 30 seconds, tick every 1 second
+        countDownTimer = new CountDownTimer(timeInSeconds *  1000, 1000) { // 30 seconds, tick every 1 second
             @SuppressLint("DefaultLocale")
             @Override
             public void onTick(long millisUntilFinished) {
-                timerText.setText(String.format("%s %d %s", getString(R.string.action6_textLeft), millisUntilFinished / 1000, getString(R.string.action6_textRight)));
+                remainingTime = millisUntilFinished / 1000;
+                timerText.setText(String.format("%s %d %s", getString(R.string.action6_textLeft), remainingTime, getString(R.string.action6_textRight)));
             }
 
             @Override
